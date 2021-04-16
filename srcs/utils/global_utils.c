@@ -6,35 +6,68 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 13:15:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/01/18 16:34:45 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/04/10 14:43:59 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	clear_console(void)
+void	free_array(char **array)
 {
-	ft_printf("\033[H\033[J");
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		array[i] = NULL;
+	}
+	free(array);
+	array = NULL;
 }
 
-
-void ft_exec_cmd(char **cmd)
+void	free_lst(void)
 {
-	pid_t 	pid = 0;
-	int		status = 0;
+	t_env	*index;
+	t_env	*tmp;
 
-	pid = fork();
-	if (pid == -1)
-		perror("fork");
-	else if (pid > 0)
+	index = first;
+	tmp = index;
+	while (index != NULL)
 	{
-		waitpid(pid, &status, 0);
-		kill(pid,SIGTERM);
+		tmp = index;
+		index = index->next;
+		free(tmp->var);
+		tmp->var = NULL;
+		free(tmp);
+		tmp = NULL;
 	}
-	else
+}
+
+char	**ft_lst_to_array(void)
+{
+	char	**array;
+	t_env	*tmp;
+	int		i;
+
+	array = NULL;
+	tmp = first;
+	i = 0;
+	while (tmp)
 	{
-		if(execve(cmd[0], cmd, NULL) == -1)
-			perror("shell");
-		exit(EXIT_FAILURE);
+		i++;
+		tmp = tmp->next;
 	}
+	array = (char **)ft_calloc(sizeof(char *), i + 1);
+	if (!array)
+		exit(-1);
+	tmp = first;
+	i = 0;
+	while (tmp)
+	{
+		array[i] = tmp->var;
+		tmp = tmp->next;
+		i++;
+	}
+	return (array);
 }

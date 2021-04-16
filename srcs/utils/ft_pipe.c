@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/16 17:43:38 by wperu            ###   ########lyon.fr   */
+/*   Created: 2021/03/22 12:16:31 by wperu             #+#    #+#             */
+/*   Updated: 2021/04/05 14:54:37 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	parse(char **cmd)
+void	ft_pipe(t_mshell *ms, char **cmd)
 {
-	int i;
-	t_cmd *tmp;
+	pid_t	pid;
 
-	i = 0;
-	tmp = ms->cmds;
-	if (cmd[0] == NULL)
-		return (0);
-	while (cmd[i])
+	pipe(ms->pfd);
+	pid = fork();
+	if (pid == 0)
 	{
-		if(ft_manage_first(cmd[i],i)); // ou if tmp->name == NULL;
-		tmp->name = ft_strdup(cmd[i]);
-		if(ft_sep_redir(cmd[i]));
-		{
-			cmd->end = i;
-			ms->stdout
-		}
-		else if(ft_sep_cmd(cmd[i]))
-			tmp()
-		
+		dup2(ms->pfd[1], 1);
+		ft_excute(ms, cmd);
+		exit(0);
 	}
-	return(1);
+	dup2(ms->pfd[0], 0);
+	close(ms->pfd[0]);
+	close(ms->pfd[1]);
+	while (wait(NULL) > 0)
+		;
 }

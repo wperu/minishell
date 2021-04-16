@@ -1,38 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/08 15:43:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/16 17:43:38 by wperu            ###   ########lyon.fr   */
+/*   Created: 2021/01/31 13:36:00 by wperu             #+#    #+#             */
+/*   Updated: 2021/04/15 18:50:03 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	parse(char **cmd)
+void	built_in_unset(char **cmd)
 {
-	int i;
-	t_cmd *tmp;
+	t_env	*tmp;
+	t_env	*previous;
+	t_env	*to_remove;
+	int		i;
 
-	i = 0;
-	tmp = ms->cmds;
-	if (cmd[0] == NULL)
-		return (0);
+	i = 1;
 	while (cmd[i])
-	{
-		if(ft_manage_first(cmd[i],i)); // ou if tmp->name == NULL;
-		tmp->name = ft_strdup(cmd[i]);
-		if(ft_sep_redir(cmd[i]));
+	{	
+		tmp = first;
+		previous = NULL;
+		to_remove = NULL;
+		while (tmp)
 		{
-			cmd->end = i;
-			ms->stdout
+			if (ft_strncmp(cmd[i], tmp->var, ft_chr(cmd[i], '=')) == 0)
+			{
+				to_remove = tmp;
+				previous->next = tmp->next;
+				free(to_remove);
+				to_remove = NULL;
+				break ;
+			}
+			previous = tmp;
+			tmp = tmp->next;
 		}
-		else if(ft_sep_cmd(cmd[i]))
-			tmp()
-		
+		i++;
 	}
-	return(1);
 }
