@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 13:15:41 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/10 14:43:59 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 16:54:30 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,24 @@ char	**ft_lst_to_array(void)
 		i++;
 	}
 	return (array);
+}
+
+char	*ft_strndup(char *str, int n)
+{
+	char	*tab;
+	int		i;
+
+	printf("str = %s indice = %i\n",str,n);
+	tab = (char *)malloc((ft_strlen(str) + 1) * sizeof(char));
+	if (!tab)
+		return (NULL);
+	i = 0;
+	while (i < n)
+	{
+		tab[i] = str[i];
+		i++;
+	}
+	tab[i] = '\0';
+	printf("tab = %s\n", tab);
+	return (tab);
 }

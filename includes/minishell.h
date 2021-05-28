@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/04/16 16:14:36 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/05/28 16:52:11 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,23 @@ typedef struct s_env
 	struct s_env	*next;
 }							t_env;
 
-typedef struct	s_cmd
+typedef struct s_cmd
 {
-	char	*name;
-	char	**arg;
-	int		sep;
-	int		end;
-	struct s_cmd *next;
+	char			*name;
+	char			**arg;
+	int				sep;
+	int				end;
+	struct s_cmd	*next;
 }				t_cmd;
+
+typedef struct s_tok
+{
+	char			*token;
+	struct s_tok	*next;
+}				t_token;
 
 typedef struct s_mshell
 {
-	//t_env	*first;
 	int		pfd[2];
 	int		p;
 	char	**path;
@@ -67,7 +72,7 @@ typedef struct s_mshell
 	t_cmd	cmds;
 }							t_mshell;
 
-t_env *first;
+t_mshell	*g_mshell;
 
 int		main(int argc, char **argv, char **env);
 
@@ -134,6 +139,9 @@ int		ft_usepath(char **cmd, char**env, t_mshell *ms, int i);
 void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer);
 
 // parsing
-int parse()
+char	*ft_parse(char *cmd);
+char	*ft_replace_var(char *cmd, int index);
+char	*ft_strndup(char *str, int n);
+char	ft_isseparator(char *cmd, int i);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 17:08:19 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/16 15:40:58 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/05/13 18:03:44 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ void	ft_excute(t_mshell *ms, char **cmd)
 		{
 			ms->path = ft_split(ft_get_env_var("PATH=") + 5, ':');
 			if(!ft_exec_cmd2(cmd, env, ms))
-				ft_printf("minishell: Command not found\n");
+				ft_printf("minishell: %s: Command not found\n", cmd[0]);
 		}
 		else
-			ft_printf("minishell: Command not found\n");
+			ft_printf("minishell: %s: Command not found\n", cmd[0]);
 		free(env);
 		env = NULL;
 	}

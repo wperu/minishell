@@ -6,7 +6,7 @@
 #    By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/08 14:26:55 by amonteli          #+#    #+#              #
-#    Updated: 2021/04/07 15:53:02 by wperu            ###   ########lyon.fr    #
+#    Updated: 2021/05/26 16:18:53 by wperu            ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRCS			=		\
 						$(addprefix utils/, global_utils.c ft_strcmp.c ft_redir.c ft_signal.c) \
 						$(addprefix built_in/, built_in.c export.c export_utils.c export_utils2.c unset.c ft_built_exit.c) \
 						$(addprefix envs/, init_env.c) \
-						$(addprefix exec/, ft_exec.c)
+						$(addprefix exec/, ft_exec.c) \
+						$(addprefix parser/, parser.c)
 
 OBJS			= 		$(addprefix srcs/, $(SRCS:.c=.o))
 

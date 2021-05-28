@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/15 16:54:56 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 17:35:17 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 
 	while (get_next_line(0, &buffer) > 0 && ms->ext != 1)
 	{
-		cmd = ft_split(buffer, ' ');// ft_parse();
+		buffer = ft_replace(buffer);
+		cmd = ft_split(buffer, ' ');
 		i = 0;
 		if (ft_parse_redir_v2(cmd, ms) == 1)
 			ft_excute(ms, cmd);
