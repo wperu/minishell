@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 15:58:57 by wperu             #+#    #+#             */
-/*   Updated: 2021/05/28 16:51:57 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 18:02:05 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ char	**ft_parser(char *buf)
 	cote = 0;
 	while ((cmd[i] != ';' || cmd[i] != '|') && cmd[i])
 	{
-
 		if (cmd[i] == 39 || cmd[i] == 34)
 		{
 			if (!cote)
@@ -100,17 +99,16 @@ void	ft_parser_2(char *buf, t_mshell *ms)
 {
 	char	**cmd;
 	int		i;
+	t_token	tok;
 
 	i = 0;
 	while (buf[i])
 	{
-		if (ft_isseparator(buf, i)
-		{
-			ft_add_token(buf,i,ms->tok)
-		}
+		if (ft_isseparator(buf, i))
+			ft_add_token(buf, i, tok);
 		i++;
-	}
-	ft_add_token();
+	}	
+	ft_add_token(buf, i, tok);
 }
 
 int	ft_check_cote(char *cmd, int i)
@@ -124,13 +122,13 @@ int	ft_check_cote(char *cmd, int i)
 	dcote = -1;
 	while (j < i && cmd[j])
 	{
-		if (cmd[j] == 39)
+		if (cmd[j] == 39 && ft_backslash(cmd, j) == 0)
 			cote = cote * -1;
-		if (cmd[j] == 34)
+		if (cmd[j] == 34 && ft_backslash(cmd, j) == 0)
 			dcote = dcote * -1;
 		j++;
 	}
-	if (cote == -1 && dcote == -1)
+	if (cote == -1 || dcote == -1)
 		return (1);
 	else
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:34:08 by wperu             #+#    #+#             */
-/*   Updated: 2021/05/11 14:25:00 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/02 18:39:03 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	built_in_env(t_mshell *ms)
 {
 	t_env	*tmp;
 
-	tmp = first;
+	tmp = g_ms->env;
 	while (tmp)
 	{
 		if (ft_chr(tmp->var, '=') != (int)ft_strlen(tmp->var))

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:11:20 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/05 14:36:18 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 15:34:59 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ void	ft_add_env_export(char *var)
 	t_env	*tmp;
 	t_env	*last;
 
-	tmp = first;
+	tmp = g_ms->env;
 	last = NULL;
 	if (ft_check_env(var, tmp))
 		ft_manage_add_env(var, tmp);
 	else
 	{
-		tmp = first;
+		tmp = g_ms->env;
 		last = malloc(sizeof(t_env));
 		if (!last)
 			return ;

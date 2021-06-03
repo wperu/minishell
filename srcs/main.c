@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
-/*   Updated: 2021/05/26 17:35:17 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 16:09:35 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	exec_built_in(char **built_in, t_mshell *ms)
 	else if (!strcmp(built_in[0], "echo"))
 		built_in_echo(built_in, ms);
 	else if (!strcmp(built_in[0], "export"))
-		built_in_export(built_in, ms);
+		built_in_export(built_in);
 	else if (!strcmp(built_in[0], "unset"))
 		built_in_unset(built_in);
 	else if (!strcmp(built_in[0], "exit"))
@@ -72,7 +72,7 @@ int	minishell(char **envp)
 	first = NULL;
 	buffer = NULL;
 	buf_size = 2048;
-	ft_init_mshell(&ms);
+	ft_init_mshell();
 	ft_dup_env(envp);
 	buffer = (char *)ft_calloc(sizeof(char), buf_size);
 	if (!buffer)
@@ -96,7 +96,7 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 
 	while (get_next_line(0, &buffer) > 0 && ms->ext != 1)
 	{
-		buffer = ft_replace(buffer);
+		//buffer = ft_replace(buffer);
 		cmd = ft_split(buffer, ' ');
 		i = 0;
 		if (ft_parse_redir_v2(cmd, ms) == 1)
@@ -106,7 +106,7 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 		if (ms->ext == 1)
 			break ;
 		free_array(cmd);
-		ft_clear_app(ms);
+		ft_reset_mshell();
 	}
 	if (ms->ext != 1)
 		ft_printf("exit\n");

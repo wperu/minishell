@@ -6,20 +6,20 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 14:34:54 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/15 15:57:01 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 15:59:56 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	built_in_export(char **cmd, t_mshell *ms)
+void	built_in_export(char **cmd)
 {
 	int	i;
 
-	if ((cmd[0 + 1] == NULL && ft_strcmp(cmd[0],"export") == 0) || ms->st_out != STDOUT)
-			ft_display_export(ms);
+	if ((cmd[1] == NULL && (ft_strcmp(cmd[0], "export") == 0)))
+		ft_display_export();
 	i = 1;
-	while(cmd[i])
+	while (cmd[i])
 	{
 		if (ft_check_correct_var(ft_trim(cmd[i], 34)) == 0)
 		{
@@ -42,29 +42,29 @@ void	ft_print_export(char *var, t_mshell *ms)
 	k = 0;
 	while (var[i])
 	{
-		write(ms->st_in, &var[i], 1);
+		write(ms->st_out, &var[i], 1);
 		if (var[i] == '=' && k == 0)
 		{
-			ft_putstr_fd("\"", ms->st_in);
+			ft_putstr_fd("\"", ms->st_out);
 			k = 1;
 		}
 		if (var[i + 1] == '\0' && k == 1)
-			ft_putstr_fd("\"\n", ms->st_in);
+			ft_putstr_fd("\"\n", ms->st_out);
 		if (var[i + 1] == '\0' && k == 0)
-			ft_putstr_fd("\n", ms->st_in);
+			ft_putstr_fd("\n", ms->st_out);
 		i++;
 	}
 }
 
-void	ft_display_export(t_mshell *ms)
+void	ft_display_export(void)
 {
 	t_env	*tmp;
 
-	tmp = first;
+	tmp = g_ms->env;
 	while (tmp)
 	{
-		write(ms->st_in, "declare -x ", 11);
-		ft_print_export(tmp->var, ms);
+		write(g_ms->st_in, "declare -x ", 11);
+		ft_print_export(tmp->var, g_ms);
 		tmp = tmp->next;
 	}
 }

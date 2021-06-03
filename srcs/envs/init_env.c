@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:36:27 by amonteli          #+#    #+#             */
-/*   Updated: 2021/05/26 15:31:20 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 16:34:22 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_get_env_var(char *var)
 	t_env	*tmp;
 	size_t	len;
 
-	tmp = first;
+	tmp = g_ms->env;
 	len = ft_strlen(var);
 	while (tmp)
 	{
@@ -35,14 +35,14 @@ void	ft_add_env_var(char *var)
 
 	if (var == NULL)
 		return ;
-	env1 = first;
+	env1 = g_ms->env;
 	new = (t_env *)ft_calloc(sizeof(t_env), 1);
 	if (!new)
 		return ;
 	new->var = var;
 	new->next = NULL;
 	if (env1 == NULL)
-		first = new;
+		g_ms->env = new;
 	else
 	{
 		while (env1-> next != NULL)
@@ -67,7 +67,7 @@ void	ft_replace_env(char *var, char *name)
 {
 	t_env	*tmp;
 
-	tmp = first;
+	tmp = g_ms->env;
 	while (tmp)
 	{
 		if (ft_strncmp(name, tmp->var, ft_strlen(name)) == 0)

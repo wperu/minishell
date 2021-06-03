@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/05/28 16:52:11 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 16:08:05 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,12 @@ typedef struct s_mshell
 	int		st_err;
 	int		ret;
 	int		ext;
-	t_cmd	cmds;
+	t_cmd	*cmds;
+	t_env	*env;
 }							t_mshell;
 
-t_mshell	*g_mshell;
+t_mshell	*g_ms;
+t_env		*first;
 
 int		main(int argc, char **argv, char **env);
 
@@ -91,7 +93,7 @@ void	ft_excute(t_mshell *ms, char **cmd);
 void	ft_replace_env(char *var, char *name);
 void	ft_joinvar(char *var, t_env *tmp);
 void	ft_print_export(char *var, t_mshell *ms);
-void	built_in_export(char **cmd, t_mshell *ms);
+void	built_in_export(char **cmd);
 void	built_in_unset(char **cmd);
 void	built_in_cd(char *path);
 void	ft_change_path(char *oldpwd, char *pwd, char *pwd_ptr);
@@ -101,7 +103,7 @@ void	built_in_env(t_mshell *ms);
 int		exec_built_in(char **built_in, t_mshell *ms);
 bool	is_built_in(char *cmd);
 void	built_in_echo(char **cmd, t_mshell *ms);
-void	ft_display_export(t_mshell *ms);
+void	ft_display_export(void);
 void	ft_add_env_export(char *var);
 void	ft_manage_add_env(char *var, t_env *tmp);
 int		ft_env_size(t_env *env);
@@ -117,10 +119,10 @@ char	*ft_strncat(char *dest, const char *src, size_t n);
 
 //redir
 
-void	ft_init_mshell(t_mshell *ms);
+void	ft_init_mshell(void);
+void	ft_reset_mshell(void);
 int		ft_parse_redir_v2(char **cmd, t_mshell *ms);
 int		ft_redir(char **cmd, t_mshell *ms);
-void	ft_clear_app(t_mshell *ms);
 void	ft_pipe(t_mshell *ms, char **cmd);
 void	shell_loop(void);
 

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 13:36:00 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/15 18:50:03 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/03 16:39:52 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	built_in_unset(char **cmd)
 	i = 1;
 	while (cmd[i])
 	{	
-		tmp = first;
+		tmp = g_ms->env;
 		previous = NULL;
 		to_remove = NULL;
 		while (tmp)
