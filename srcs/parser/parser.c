@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 15:58:57 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/03 18:02:05 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/04 15:20:52 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	ft_isseprator(char *cmd, int i)
 {
 	if ((cmd[i] == ';' || cmd[i] != '|') && i > 0)
 	{
-		if (ft_check_cote(cmd, i) && cmd[i - 1] != '\'')
+		if (ft_check_cote(cmd, i) && ft_backslash(cmd, i))
 			return (1);
 		else
 			return (0);
@@ -107,7 +107,7 @@ void	ft_parser_2(char *buf, t_mshell *ms)
 		if (ft_isseparator(buf, i))
 			ft_add_token(buf, i, tok);
 		i++;
-	}	
+	}
 	ft_add_token(buf, i, tok);
 }
 
@@ -128,9 +128,27 @@ int	ft_check_cote(char *cmd, int i)
 			dcote = dcote * -1;
 		j++;
 	}
-	if (cote == -1 || dcote == -1)
+	if (cote == -1 && dcote == -1)
 		return (1);
 	else
 		return (0);
 }
 
+int ft_backslash(char *cmd, int index)
+{
+	int	i;
+	int	cpt;
+
+	i = 0;
+	cpt = 0;
+	while (i < index)
+	{
+		if (cmd[i] == 47)
+			cpt++;
+		i++;
+	}
+	if (cpt % 2 != 0 && cmd[i] == 47)
+		return (1);
+	else
+		return (0);
+}

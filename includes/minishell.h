@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/06/03 16:08:05 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/04 15:20:07 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,11 @@ typedef struct s_mshell
 	int		ext;
 	t_cmd	*cmds;
 	t_env	*env;
+	t_token	*tok;
 }							t_mshell;
 
 t_mshell	*g_ms;
-t_env		*first;
+//t_env		*first;
 
 int		main(int argc, char **argv, char **env);
 

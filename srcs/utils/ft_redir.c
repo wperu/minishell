@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 13:39:57 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/03 16:00:35 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/04 15:20:32 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_init_mshell(void)
 	}
 	g_ms->env = NULL;
 	g_ms->cmds = NULL;
+	g_ms->tok = NULL;
 	g_ms->st_in = STDIN;
 	g_ms->st_out = STDOUT;
 	g_ms->st_err = STDERR;
