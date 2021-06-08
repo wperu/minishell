@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/03 16:09:35 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 16:01:55 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,8 @@ int	minishell(char **envp)
 	char		*buffer;
 	size_t		buf_size;
 	char		**cmd;
-	t_mshell	ms;
 
 	cmd = NULL;
-	first = NULL;
 	buffer = NULL;
 	buf_size = 2048;
 	ft_init_mshell();
@@ -83,11 +81,11 @@ int	minishell(char **envp)
 	signal(SIGINT, &ft_signal_c);
 	signal(SIGQUIT, &ft_silence);
 	write(1, "minishell> ", 11);
-	ft_gnl_minishell(&ms, cmd, buffer);
+	ft_gnl_minishell(g_ms, cmd, buffer);
 	free_lst();
 	ft_printf("Bye \n");
 	free(buffer);
-	return (ms.ret);
+	return (g_ms->ret);
 }
 
 void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
@@ -97,6 +95,7 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 	while (get_next_line(0, &buffer) > 0 && ms->ext != 1)
 	{
 		//buffer = ft_replace(buffer);
+		ft_parse(buffer);
 		cmd = ft_split(buffer, ' ');
 		i = 0;
 		if (ft_parse_redir_v2(cmd, ms) == 1)

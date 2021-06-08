@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 17:08:19 by wperu             #+#    #+#             */
-/*   Updated: 2021/05/13 18:03:44 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 15:44:36 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ int	ft_usepath(char **cmd, char**env, t_mshell *ms, int i)
 				close(ms->pfd[0]);*/
 			wait(&ms->status);
 			free(tmp);
-			return(1);
+			return (1);
 		}
 		free(tmp);
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
 int	ft_exec_cmd2(char **cmd, char**env, t_mshell *ms)
@@ -48,7 +48,7 @@ int	ft_exec_cmd2(char **cmd, char**env, t_mshell *ms)
 	fd = open(cmd[0], 0);
 	if (fd > 0 && !close(fd))
 	{
-		if (ms->st_out != STDOUT)
+		if (g_ms->st_out != STDOUT)
 		{
 			if (execve(cmd[0], cmd, env) < 0
 				&& ft_printf("%s not an executable\n", cmd[0]))
@@ -60,7 +60,7 @@ int	ft_exec_cmd2(char **cmd, char**env, t_mshell *ms)
 		ft_manage_signal(2);
 		wait(&ms->status);
 		ms->status = WEXITSTATUS(ms->status);
-		return(1);
+		return (1);
 	}
 	else
 		return (ft_usepath(cmd, env, ms, 0));
@@ -81,7 +81,7 @@ void	ft_excute(t_mshell *ms, char **cmd)
 		if (ft_get_env_var("PATH="))
 		{
 			ms->path = ft_split(ft_get_env_var("PATH=") + 5, ':');
-			if(!ft_exec_cmd2(cmd, env, ms))
+			if (!ft_exec_cmd2(cmd, env, ms))
 				ft_printf("minishell: %s: Command not found\n", cmd[0]);
 		}
 		else

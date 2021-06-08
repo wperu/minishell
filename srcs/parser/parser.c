@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 15:58:57 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/04 15:20:52 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 16:17:48 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char	*ft_replace(char *cmd)
 	return (cmd);
 }
 
+/*
 char	**ft_parser(char *buf)
 {
 	char	**cmd;
@@ -81,34 +82,37 @@ char	**ft_parser(char *buf)
 			backslash = 0;
 	}
 }
-
-int	ft_isseprator(char *cmd, int i)
+*/
+int	ft_isseparator(char *cmd, int i)
 {
-	if ((cmd[i] == ';' || cmd[i] != '|') && i > 0)
+	if ((cmd[i] == ';' || cmd[i] == '|'))
 	{
-		if (ft_check_cote(cmd, i) && ft_backslash(cmd, i))
-			return (1);
-		else
-			return (0);
+		//if (ft_check_cote(cmd, i) && ft_backslash(cmd, i))
+		return (1);
+		/*else
+			return (0);*/
 	}
 	else
 		return (0);
 }
 
-void	ft_parser_2(char *buf, t_mshell *ms)
+void	ft_parse(char *buf)
 {
-	char	**cmd;
 	int		i;
-	t_token	tok;
+	int		j;
 
 	i = 0;
+	j = 0;
 	while (buf[i])
 	{
 		if (ft_isseparator(buf, i))
-			ft_add_token(buf, i, tok);
+		{
+			 ft_add_token(buf, i, j);
+			 j = i + 1;
+		}
 		i++;
 	}
-	ft_add_token(buf, i, tok);
+	ft_add_token(buf, i, j);
 }
 
 int	ft_check_cote(char *cmd, int i)

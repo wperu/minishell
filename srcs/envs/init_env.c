@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:36:27 by amonteli          #+#    #+#             */
-/*   Updated: 2021/06/03 16:34:22 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 14:37:02 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_add_env_var(char *var)
 		g_ms->env = new;
 	else
 	{
-		while (env1-> next != NULL)
+		while (env1->next != NULL)
 			env1 = env1->next;
 		env1->next = new;
 	}

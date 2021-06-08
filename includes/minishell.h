@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/06/04 15:20:07 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/08 16:14:28 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ typedef struct s_mshell
 }							t_mshell;
 
 t_mshell	*g_ms;
-//t_env		*first;
 
 int		main(int argc, char **argv, char **env);
 
@@ -117,7 +116,7 @@ int		ft_check_correct_var(char *var);
 //libft
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strncat(char *dest, const char *src, size_t n);
-
+char	*ft_strndup(char *str, int n);
 //redir
 
 void	ft_init_mshell(void);
@@ -142,9 +141,13 @@ int		ft_usepath(char **cmd, char**env, t_mshell *ms, int i);
 void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer);
 
 // parsing
-char	*ft_parse(char *cmd);
+void	ft_parse(char *cmd);
 char	*ft_replace_var(char *cmd, int index);
-char	*ft_strndup(char *str, int n);
-char	ft_isseparator(char *cmd, int i);
+char	*ft_nstrndup(char *str, int n, int start);
+int		ft_isseparator(char *cmd, int i);
+int		ft_check_cote(char *cmd, int i);
+int		ft_backslash(char *cmd, int index);
 
+//token
+void	ft_add_token(char *cmd, int i, int j);
 #endif
