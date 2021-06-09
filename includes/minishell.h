@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/06/08 18:09:50 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 19:00:40 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <signal.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include "../libft/includes/libft.h"
 
 # define	STDIN 0

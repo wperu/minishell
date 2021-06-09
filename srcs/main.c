@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/08 16:01:55 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/09 19:05:12 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int	minishell(char **envp)
 	}
 	signal(SIGINT, &ft_signal_c);
 	signal(SIGQUIT, &ft_silence);
-	write(1, "minishell> ", 11);
 	ft_gnl_minishell(g_ms, cmd, buffer);
 	free_lst();
 	ft_printf("Bye \n");
@@ -92,20 +91,21 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 {
 	int	i;
 
-	while (get_next_line(0, &buffer) > 0 && ms->ext != 1)
+	while (buffer != NULL && ms->ext != 1)
 	{
-		//buffer = ft_replace(buffer);
-		ft_parse(buffer);
-		cmd = ft_split(buffer, ' ');
-		i = 0;
-		if (ft_parse_redir_v2(cmd, ms) == 1)
-			ft_excute(ms, cmd);
-		if (ms->ext == 0)
-			write(1, "minishell> ", 11);
-		if (ms->ext == 1)
-			break ;
-		free_array(cmd);
-		ft_reset_mshell();
+		buffer = readline("minishell>");
+		if (buffer != NULL)
+		{
+			ft_parse(buffer);
+			cmd = ft_split(buffer, ' ');
+			i = 0;
+			if (ft_parse_redir_v2(cmd, ms) == 1)
+				ft_excute(ms, cmd);
+			if (ms->ext == 1)
+				break ;
+			free_array(cmd);
+			ft_reset_mshell();
+		}
 	}
 	if (ms->ext != 1)
 		ft_printf("exit\n");
