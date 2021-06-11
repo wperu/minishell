@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+         #
+#    By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/08 14:26:55 by amonteli          #+#    #+#              #
-#    Updated: 2021/06/08 15:57:03 by wperu            ###   ########lyon.fr    #
+#    Updated: 2021/06/09 19:02:45 by emenella         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRCS			=		\
 
 OBJS			= 		$(addprefix srcs/, $(SRCS:.c=.o))
 
-LIB 			= 		libft/libft.a
+LIB 			= 		libft/libft.a -lreadline
 
 all				: 		$(NAME)
 
