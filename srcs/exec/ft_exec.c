@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 17:08:19 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/08 15:44:36 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/12 16:42:39 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,6 @@ void	ft_excute(t_mshell *ms, char **cmd)
 		free(env);
 		env = NULL;
 	}
+	signal(SIGINT, &ft_signal_c);
+	signal(SIGQUIT, &ft_silence);
 }
