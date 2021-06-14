@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 13:39:57 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/11 16:59:48 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/14 16:46:07 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	ft_parse_redir_v2(char **cmd, t_mshell *ms)
 void	ft_reset_mshell(void)
 {
 	free(g_ms->cmds);
+	free(g_ms->tok);
+	g_ms->tok = NULL;
 	g_ms->cmds = NULL;
 	g_ms->st_in = STDIN;
 	g_ms->st_out = STDOUT;

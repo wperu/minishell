@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/08 14:26:55 by amonteli          #+#    #+#              #
-#    Updated: 2021/06/09 19:02:45 by emenella         ###   ########.fr        #
+#    Updated: 2021/06/12 17:08:53 by wperu            ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRCS			=		\
 						$(addprefix utils/, global_utils.c tools.c ft_strcmp.c ft_redir.c ft_signal.c) \
 						$(addprefix built_in/, built_in.c export.c export_utils.c export_utils2.c unset.c ft_built_exit.c) \
 						$(addprefix envs/, init_env.c) \
-						$(addprefix exec/, ft_exec.c) \
+						$(addprefix exec/, ft_exec.c ft_cmd.c) \
 						$(addprefix parser/, parser.c token.c) 
 
 OBJS			= 		$(addprefix srcs/, $(SRCS:.c=.o))

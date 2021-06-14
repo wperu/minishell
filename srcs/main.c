@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/18 15:12:14 by wperu             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/06/11 17:37:24 by wperu            ###   ########lyon.fr   */
-=======
-/*   Updated: 2021/06/09 19:05:12 by emenella         ###   ########.fr       */
->>>>>>> b8ceacb978c38843f2860f1ed5e2b51cfdcd7872
+/*   Created: 2021/06/12 15:30:04 by wperu             #+#    #+#             */
+/*   Updated: 2021/06/12 17:21:16 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +99,8 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 			ft_parse(buffer);
 			cmd = ft_split(buffer, ' ');
 			i = 0;
+			ft_split_cmd(g_ms->tok);
+			ft_display_cmd(g_ms->cmds);
 			if (ft_parse_redir_v2(cmd, ms) == 1)
 				ft_excute(ms, cmd);
 			if (ms->ext == 1)

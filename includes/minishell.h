@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/06/09 19:00:40 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/12 17:10:15 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,4 +156,7 @@ void	ft_add_token(char *cmd, int i, int j);
 //cmd
 
 void	ft_split_cmd(t_token *tok);
+void	ft_display_cmd(t_cmd *cmds);
+int		ft_redir_cmd(char **arg, int *end);
+void	ft_add_cmd(t_token *tok, int i);
 #endif
