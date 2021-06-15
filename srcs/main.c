@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 15:30:04 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/12 17:21:16 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/15 11:27:47 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 		buffer = readline("minishell>");
 		if (buffer != NULL)
 		{
+			add_history(buffer);
 			ft_parse(buffer);
 			cmd = ft_split(buffer, ' ');
 			i = 0;
