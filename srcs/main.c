@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 15:30:04 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/12 17:21:16 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 16:37:39 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	is_built_in(char *cmd)
 	free(built_in);
 	return (false);
 }
-
+/*
 int	exec_built_in(char **built_in, t_mshell *ms)
 {
 	char	*pwd;
@@ -60,7 +60,7 @@ int	exec_built_in(char **built_in, t_mshell *ms)
 	}
 	return (0);
 }
-
+*/
 int	minishell(char **envp)
 {
 	char		*buffer;
@@ -94,6 +94,7 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 	while (buffer != NULL && ms->ext != 1)
 	{
 		buffer = readline("minishell>");
+			printf("buffer = %zu\n", ft_strlen(buffer));
 		if (buffer != NULL)
 		{
 			ft_parse(buffer);
@@ -102,7 +103,7 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 			ft_split_cmd(g_ms->tok);
 			ft_display_cmd(g_ms->cmds);
 			if (ft_parse_redir_v2(cmd, ms) == 1)
-				ft_excute(ms, cmd);
+				ft_excute(ms, g_ms->cmds);
 			if (ms->ext == 1)
 				break ;
 			free_array(cmd);

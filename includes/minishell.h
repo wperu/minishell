@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/06/12 17:10:15 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 15:49:36 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,23 +88,23 @@ void	ft_add_env_var(char *var);
 char	*ft_get_env_var(char *var);
 char	**ft_lst_to_array(void);
 bool	get_abs_path(char **cmd, char **envp);
-void	ft_excute(t_mshell *ms, char **cmd);
+void	ft_excute(t_mshell *ms, t_cmd *cmd);
 
 // built-in
 
 void	ft_replace_env(char *var, char *name);
 void	ft_joinvar(char *var, t_env *tmp);
 void	ft_print_export(char *var, t_mshell *ms);
-void	built_in_export(char **cmd);
-void	built_in_unset(char **cmd);
+void	built_in_export(t_cmd *cmd);
+void	built_in_unset(t_cmd *cmd);
 void	built_in_cd(char *path);
 void	ft_change_path(char *oldpwd, char *pwd, char *pwd_ptr);
-void	built_in_exit(char **cmd, t_mshell *msh);
+void	built_in_exit(t_cmd *cmd, t_mshell *msh);
 char	*built_in_pwd(char *cmd);
 void	built_in_env(t_mshell *ms);
-int		exec_built_in(char **built_in, t_mshell *ms);
+int		exec_built_in(t_cmd *cmd, t_mshell *ms);
 bool	is_built_in(char *cmd);
-void	built_in_echo(char **cmd, t_mshell *ms);
+void	built_in_echo(t_cmd *cmd, t_mshell *ms);
 void	ft_display_export(void);
 void	ft_add_env_export(char *var);
 void	ft_manage_add_env(char *var, t_env *tmp);
@@ -137,8 +137,8 @@ void	ft_nl(int i);
 void	ft_manage_signal(int key);
 
 //exec
-int		ft_exec_cmd2(char **cmd, char**env, t_mshell *ms);
-int		ft_usepath(char **cmd, char**env, t_mshell *ms, int i);
+int		ft_exec_cmd2(t_cmd *cmd, char**env, t_mshell *ms);
+int		ft_usepath(t_cmd *cmd, char**env, t_mshell *ms, int i);
 
 void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer);
 
@@ -159,4 +159,6 @@ void	ft_split_cmd(t_token *tok);
 void	ft_display_cmd(t_cmd *cmds);
 int		ft_redir_cmd(char **arg, int *end);
 void	ft_add_cmd(t_token *tok, int i);
+char	**ft_dup_cmd(char *name, char **arg);
+
 #endif

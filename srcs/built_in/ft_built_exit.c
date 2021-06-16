@@ -6,17 +6,17 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 08:31:19 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/07 15:33:25 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 15:03:10 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	built_in_exit(char **cmd, t_mshell *msh)
+void	built_in_exit(t_cmd *cmd, t_mshell *msh)
 {
 	ft_putstr_fd("exit\n", STDERR);
-	if (cmd[1])
-		msh->ret = ft_atoi(cmd[1]);
+	if (cmd->arg[0])
+		msh->ret = ft_atoi(cmd->arg[0]);
 	else
 		msh->ret = 0;
 }
