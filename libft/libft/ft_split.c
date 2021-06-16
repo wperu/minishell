@@ -6,7 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 23:15:54 by emenella          #+#    #+#             */
-/*   Updated: 2021/06/16 19:29:26 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/16 19:40:46 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static char	**fillup(char const *s, char **dst, char c, int l)
 		dst[j][k] = '\0';
 		j++;
 	}
-	dst[j] = "";
+	dst[j] = 0;
 	return (dst);
 }
 
