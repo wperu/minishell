@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:24:34 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/14 16:45:47 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 15:20:08 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,24 @@ int	ft_redir_cmd(char **arg, int *end)
 		{
 			g_ms->st_out = open(arg[i + 1], O_CREAT | O_WRONLY | O_TRUNC,
 					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-			*end = i;
+			if (*end == 0)
+				*end = i;
 		}
 		else if (ft_strcmp(arg[i], ">>") == 0)
+		{
 			g_ms->st_out = open(arg[i + 1], O_CREAT | O_WRONLY | O_APPEND,
 					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+			if (*end == 0)
+				*end = i;
+		}
 		i++;
 	}
 	if (*end == 0)
-		return (0);
-	else
 	{
-		puts("o");
-		return (1);
+		*end = i;
+		return (0);
 	}
+	return (1);
 }
 
 void	ft_display_cmd(t_cmd *cmds)

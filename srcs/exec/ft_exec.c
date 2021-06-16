@@ -6,12 +6,12 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 17:08:19 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/14 16:46:48 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/15 17:17:42 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
+/*
 int	ft_usepath(char **cmd, char**env, t_mshell *ms, int i)
 {
 	struct stat		buf;
@@ -29,8 +29,8 @@ int	ft_usepath(char **cmd, char**env, t_mshell *ms, int i)
 					exit(EXIT_SUCCESS);
 			}
 			ft_manage_signal(1);
-			/*if(flag && !close(ms->pfd[1]))
-				close(ms->pfd[0]);*/
+			//if(flag && !close(ms->pfd[1]))
+			//	close(ms->pfd[0]);
 			wait(&ms->status);
 			free(tmp);
 			return (1);
@@ -41,7 +41,7 @@ int	ft_usepath(char **cmd, char**env, t_mshell *ms, int i)
 	return (0);
 }
 
-int	ft_exec_cmd2(char **cmd, char**env, t_mshell *ms)
+int	ft_exec_cmd2(char **cmd, char **env, t_mshell *ms)
 {
 	int	fd;
 
@@ -92,3 +92,4 @@ void	ft_excute(t_mshell *ms, char **cmd)
 	signal(SIGINT, &ft_signal_c);
 	signal(SIGQUIT, &ft_silence);
 }
+*/

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:34:08 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/04 15:33:22 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 15:16:35 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	built_in_cd(char *path)
 	oldpwd = NULL;
 	pwd = NULL;
 	pwd_ptr = NULL;
-	if (path == NULL || ft_strcmp(path, "~") == 0)
+	if (path == NULL || path[0] == '~')
 	{
-		if (chdir(ft_get_env_var("HOME=") + 5) == 0)
+		if (chdir(ft_strjoin(ft_get_env_var("HOME=") + 5, path + 1)) == 0)
 			ft_change_path(oldpwd, pwd, pwd_ptr);
 	}
 	else if (chdir(path) == 0)
@@ -89,27 +89,24 @@ void	built_in_env(t_mshell *ms)
 	}
 }
 
-void	built_in_echo(char **cmd, t_mshell *ms)
+void	built_in_echo(t_cmd *cmd, t_mshell *ms)
 {
 	int	i;
 	int	option;
 
 	i = 0;
 	option = 0;
-	if (cmd[++i])
-	{	
-		if (!(ft_strcmp(cmd[i], "-n")))
-		{	
-			option = 1;
-			i++;
-		}
-		while (cmd && cmd[i])
-		{
-			ft_putstr_fd(cmd[i], ms->st_out);
-			if (cmd[i + 1])
-				ft_putstr_fd(" ", ms->st_out);
-			i++;
-		}
+	if (!(ft_strcmp(cmd->arg[0], "-n")))
+	{
+		option = 1;
+		i++;
+	}
+	while (cmd->arg[i] && i < cmd->end)
+	{
+		ft_putstr_fd(cmd->arg[i], ms->st_out);
+		if (cmd->arg[i + 1])
+			ft_putstr_fd(" ", ms->st_out);
+		i++;
 	}
 	if (option == 0)
 		ft_putstr_fd("\n", ms->st_out);
