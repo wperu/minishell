@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 15:30:04 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/16 16:59:19 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/16 17:04:39 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 	while (buffer != NULL && ms->ext != 1)
 	{
 		buffer = readline("minishell>");
-		if (buffer != NULL)
+		if (ft_strlen(buffer) != 0)
 		{
 			add_history(buffer);
 			ft_parse(buffer);
