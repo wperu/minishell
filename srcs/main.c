@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 15:30:04 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/16 16:37:39 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 16:51:47 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,35 +32,7 @@ bool	is_built_in(char *cmd)
 	free(built_in);
 	return (false);
 }
-/*
-int	exec_built_in(char **built_in, t_mshell *ms)
-{
-	char	*pwd;
 
-	if (!strcmp(built_in[0], "pwd"))
-	{
-		pwd = built_in_pwd(built_in[0]);
-		ft_putstr_fd(pwd, ms->st_out);
-		ft_putstr_fd("\n", ms->st_out);
-	}
-	else if (!strcmp(built_in[0], "cd"))
-		built_in_cd(built_in[1]);
-	else if (!strcmp(built_in[0], "env"))
-		built_in_env(ms);
-	else if (!strcmp(built_in[0], "echo"))
-		built_in_echo(built_in, ms);
-	else if (!strcmp(built_in[0], "export"))
-		built_in_export(built_in);
-	else if (!strcmp(built_in[0], "unset"))
-		built_in_unset(built_in);
-	else if (!strcmp(built_in[0], "exit"))
-	{
-		built_in_exit(built_in, ms);
-		return (1);
-	}
-	return (0);
-}
-*/
 int	minishell(char **envp)
 {
 	char		*buffer;
@@ -94,9 +66,9 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 	while (buffer != NULL && ms->ext != 1)
 	{
 		buffer = readline("minishell>");
-			printf("buffer = %zu\n", ft_strlen(buffer));
 		if (buffer != NULL)
 		{
+			add_history(buffer);
 			ft_parse(buffer);
 			cmd = ft_split(buffer, ' ');
 			i = 0;

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 16:59:31 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/16 15:49:41 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 16:43:13 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_exec_cmd2(t_cmd *cmd, char **env, t_mshell *ms)
 void	ft_excute(t_mshell *ms, t_cmd *cmd)
 {
 	char	**env;
-	
+
 	env = NULL;
 	if (cmd->name == NULL)
 		ft_printf("");
