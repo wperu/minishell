@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 15:30:04 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/16 17:04:39 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 19:15:56 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	minishell(char **envp)
 	signal(SIGQUIT, &ft_silence);
 	ft_gnl_minishell(g_ms, cmd, buffer);
 	free_lst();
-	ft_printf("Bye \n");
+	printf("Bye \n");
 	free(buffer);
 	return (g_ms->ret);
 }
@@ -83,7 +83,7 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 		}
 	}
 	if (ms->ext != 1)
-		ft_printf("exit\n");
+		printf("exit\n");
 	free(buffer);
 }
 

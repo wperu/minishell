@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 13:11:20 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/03 15:34:59 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 19:15:57 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_manage_add_env(char *var, t_env *tmp)
 		ft_joinvar(var, tmp);
 	else if (var[ft_chr(var, '=') - 1] != '+'
 		&& ft_chr(var, '+') < ft_chr(var, '='))
-		ft_printf("minishell: export: `%s': not a valid identifier\n", var);
+		printf("minishell: export: `%s': not a valid identifier\n", var);
 	else
 		ft_change_var(var, tmp);
 }

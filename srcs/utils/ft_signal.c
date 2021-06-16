@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 15:16:06 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/10 17:44:09 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 19:16:01 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	ft_signal_c(int sign)
 
 void	ft_signal_slash(int i)
 {
-	ft_printf("Quit: 3\n");
+	printf("Quit: 3\n");
 	signal(i, SIG_IGN);
 }
 
 void	ft_nl(int i)
 {
-	ft_printf("\n");
+	printf("\n");
 	signal(i, SIG_IGN);
 }
 

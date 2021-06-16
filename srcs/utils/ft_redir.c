@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 13:39:57 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/14 16:46:07 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/16 19:16:00 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_parse_redir_v2(char **cmd, t_mshell *ms)
 		/* else if (ft_strcmp(cmd[i],"<\0") == 0)
             if ((ms->st_in = open(cmd[i + 1],O_RDONLY)) < 0)
             {
-                ft_printf("minishell: %s: No such file or directory\n", cmd[i +1]);
+                printf("minishell: %s: No such file or directory\n", cmd[i +1]);
                 return(-1);
             }*/
 		i++;
