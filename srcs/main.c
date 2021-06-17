@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 15:30:04 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/16 17:04:39 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 17:26:08 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 	while (buffer != NULL && ms->ext != 1)
 	{
 		buffer = readline("minishell>");
-		if (ft_strlen(buffer) != 0)
+		if (ft_one_nospace(buffer) == 1)
 		{
 			add_history(buffer);
 			ft_parse(buffer);
@@ -79,8 +79,9 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 			if (ms->ext == 1)
 				break ;
 			free_array(cmd);
-			ft_reset_mshell();
+			//ft_reset_mshell();
 		}
+		ft_reset_mshell();
 	}
 	if (ms->ext != 1)
 		ft_printf("exit\n");

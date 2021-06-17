@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 14:39:52 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/08 16:12:59 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 17:28:39 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,18 @@ void	ft_add_token(char *cmd, int i, int j)
 			tok = tok->next;
 		tok->next = new;
 	}
+}
+
+int	ft_one_nospace(char *buffer)
+{
+	int	i;
+
+	i = 0;
+	while (buffer && buffer[i])
+	{
+		if (buffer[i] > 13 && buffer[i] != ' ' && buffer[i] != '\0' )
+			return (1);
+		i++;
+	}
+	return (0);
 }

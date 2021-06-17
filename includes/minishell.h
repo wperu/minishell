@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/06/16 15:49:36 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 17:18:23 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int		ft_backslash(char *cmd, int index);
 
 //token
 void	ft_add_token(char *cmd, int i, int j);
-
+int		ft_one_nospace(char *buffer);
 //cmd
 
 void	ft_split_cmd(t_token *tok);
