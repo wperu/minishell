@@ -14,7 +14,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(AR) $(NAME) $(OBJ)
-	@printf "%b" "\033[0;32m libft is done !$(NO_COLOR)\n"
+	@printf "%b" "\033[0;32m $(NAME) is done !$(NO_COLOR)\n"
 
 %.o: %.c $(HEADER) $(SRC)
 	@printf "%b" "\033c";

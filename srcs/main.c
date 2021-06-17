@@ -6,7 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 15:30:04 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/17 19:56:48 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/17 20:02:20 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 
 	while (buffer != NULL && ms->ext != 1)
 	{
-		buffer = readline("minishell> ");
-		if (buffer != NULL && ft_strlen(buffer) != 0)
+		buffer = readline("minishell>");
+		if (ft_one_nospace(buffer) == 1)
 		{
 			add_history(buffer);
 			ft_parse(buffer);
@@ -81,6 +81,7 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 			free_array(cmd);
 			ft_reset_mshell();
 		}
+		ft_reset_mshell();
 	}
 	if (ms->ext != 1)
 		printf("exit\n");

@@ -6,7 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/06/17 19:54:41 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/17 20:02:12 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,13 +152,14 @@ int		ft_backslash(char *cmd, int index);
 
 //token
 void	ft_add_token(char *cmd, int i, int j);
-
+int		ft_one_nospace(char *buffer);
 //cmd
 
 void	ft_split_cmd(t_token *tok);
 void	ft_display_cmd(t_cmd *cmds);
 int		ft_redir_cmd(char **arg, int *end);
 void	ft_add_cmd(t_token *tok, int i);
-char	**ft_dup_cmd(char *name, char **arg);
 t_list  *read_input_from(char *key);
+char	**ft_dup_cmd(char *name, char **arg, int end);
+
 #endif

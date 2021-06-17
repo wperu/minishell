@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:24:34 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/16 19:39:53 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/17 18:08:54 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	ft_redir_cmd(char **arg, int *end)
 		}
 		i++;
 	}
-	if (*end == 0)
+	if (g_ms->st_out == STDOUT)
 	{
 		*end = i;
 		return (0);

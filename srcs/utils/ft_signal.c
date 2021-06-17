@@ -6,7 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 15:16:06 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/17 19:16:35 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/17 20:02:02 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_signal_c(int sign)
 	sign = 0;
 	write(1, "\n", 1);
 	rl_on_new_line();
-	rl_replace_line("", 0);
+	//rl_replace_line("", 0);
 	rl_redisplay();
 }
 
