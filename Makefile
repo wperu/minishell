@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+         #
+#    By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/08 14:26:55 by amonteli          #+#    #+#              #
-#    Updated: 2021/06/15 17:23:54 by wperu            ###   ########lyon.fr    #
+#    Updated: 2021/06/17 19:53:21 by emenella         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ HEADERS			=		includes/minishell.h
 
 CC				=		gcc
 
-CFLAGS 			= 		-Wall -Wextra -g3 -fsanitize=address
+CFLAGS 			= 		-Wall -Wextra #-Werror -g3 -fsanitize=address 
 
 SRCS			=		\
 						main.c \
@@ -31,13 +31,13 @@ SRCS			=		\
 
 OBJS			= 		$(addprefix srcs/, $(SRCS:.c=.o))
 
-LIB 			= 		libft/libft.a -lreadline
+LIB 			= 		libft/libft.a $(LDFLAGS) -lreadline
 
 all				: 		$(NAME)
 
 $(NAME)		: $(OBJS)
 		@make -C libft
-		@$(CC) $(CFLAGS) $(OBJS) -I $(HEADERS) $(LIB) -o $(NAME)
+		$(CC) $(CFLAGS) $(OBJS) -I $(HEADERS) $(LIB) -o $(NAME)
 
 %.o: %.c $(HEADERS)
 		@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)
