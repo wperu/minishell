@@ -15,7 +15,10 @@
 void	ft_signal_c(int sign)
 {
 	sign = 0;
-	write(1, "\nminishell> ", 12);
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 void	ft_signal_slash(int i)
@@ -39,17 +42,17 @@ void	ft_manage_signal(int key)
 {
 	if (key == 0)
 	{
-		signal(SIGINT, ft_signal_c);
-		signal(SIGQUIT, ft_silence);
+		signal(SIGINT, &ft_signal_c);
+		signal(SIGQUIT, &ft_silence);
 	}
 	if (key == 1)
 	{
-		signal(SIGINT, ft_nl);
-		signal(SIGQUIT, ft_signal_slash);
+		signal(SIGINT, &ft_nl);
+		signal(SIGQUIT, &ft_signal_slash);
 	}
 	else
 	{
-		signal(SIGINT, ft_silence);
-		signal(SIGQUIT, ft_silence);
+		signal(SIGINT, &ft_silence);
+		signal(SIGQUIT, &ft_silence);
 	}
 }

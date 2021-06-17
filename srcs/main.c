@@ -65,8 +65,8 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 
 	while (buffer != NULL && ms->ext != 1)
 	{
-		buffer = readline("minishell>");
-		if (ft_strlen(buffer) != 0)
+		buffer = readline("minishell> ");
+		if (buffer != NULL && ft_strlen(buffer) != 0)
 		{
 			add_history(buffer);
 			ft_parse(buffer);
