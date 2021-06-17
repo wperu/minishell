@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 15:30:04 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/17 19:44:32 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 19:51:44 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 			if (ms->ext == 1)
 				break ;
 			free_array(cmd);
-			ft_reset_mshell();
+			//ft_reset_mshell();
 		}
 		ft_reset_mshell();
 	}

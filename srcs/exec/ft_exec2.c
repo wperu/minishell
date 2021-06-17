@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 16:59:31 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/17 19:43:45 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 20:25:05 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	ft_usepath(t_cmd *cmd, char**env, t_mshell *ms, int i)
 	char			**cd;
 
 	cd = ft_dup_cmd(cmd->name, cmd->arg, cmd->end);
+	printf("%s\n", g_ms->path[i]);
 	while (cmd->name && ms->path && ms->path[i])
 	{
 		tmp = ft_strjoin(ft_strjoin(ms->path[i], "/"), cmd->name);
@@ -31,6 +32,7 @@ int	ft_usepath(t_cmd *cmd, char**env, t_mshell *ms, int i)
 					dup2(ms->st_out, 1);
 					close(ms->st_out);
 				}
+				puts("ok");
 				if (execve(tmp, cd, env) < 0
 					&& printf("minishell: %s: command not found\n", cmd->name))
 					exit(EXIT_SUCCESS);
@@ -56,25 +58,29 @@ int	ft_exec_cmd2(t_cmd *cmd, char **env, t_mshell *ms)
 
 	cd = ft_dup_cmd(cmd->name, cmd->arg, cmd->end);
 	fd = open(cmd->name, 0);
-	if (fd > 0 && !close(fd))
+	if (ft_chr(cmd->name, '/') < (int)ft_strlen(cmd->name))
 	{
-		if (g_ms->st_out != STDOUT)
+		if (fd > 0 && !close(fd))
 		{
-			if (execve(cmd->name, cd, env) < 0
-				&& printf("%s not an executable\n", cmd->name))
+			if (g_ms->st_out != STDOUT)
+			{
+				if (execve(cmd->name, cd, env) < 0
+					&& printf("%s not an executable\n", cmd->name))
+					exit(EXIT_SUCCESS);
+			}
+			else if (fork() == 0 && execve(cmd->name, cd, env) < 0
+				&& printf("minishell: %s: Command not found\n", cmd->name))
 				exit(EXIT_SUCCESS);
+			ft_manage_signal(2);
+			wait(&ms->status);
+			ms->status = WEXITSTATUS(ms->status);
+			free(cd);
+			return (1);
 		}
-		else if (fork() == 0 && execve(cmd->name, cd, env) < 0
-			&& printf("minishell: %s: Command not found\n", cmd->name))
-			exit(EXIT_SUCCESS);
-		ft_manage_signal(2);
-		wait(&ms->status);
-		ms->status = WEXITSTATUS(ms->status);
-		free(cd);
-		return (1);
 	}
 	else
 		return (ft_usepath(cmd, env, ms, 0));
+	return (0);
 }
 
 void	ft_excute(t_mshell *ms, t_cmd *cmd)
@@ -91,7 +97,7 @@ void	ft_excute(t_mshell *ms, t_cmd *cmd)
 		env = ft_lst_to_array();
 		if (ft_get_env_var("PATH="))
 		{
-			ms->path = ft_split(ft_get_env_var("PATH=") + 5, ':');
+			g_ms->path = ft_split(ft_get_env_var("PATH=") + 5, ':');
 			if (!ft_exec_cmd2(cmd, env, ms))
 				printf("minishell: %s: Command not found\n", cmd->name);
 		}
