@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 15:30:04 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/17 17:26:08 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 19:44:32 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	minishell(char **envp)
 	signal(SIGQUIT, &ft_silence);
 	ft_gnl_minishell(g_ms, cmd, buffer);
 	free_lst();
-	ft_printf("Bye \n");
+	printf("Bye \n");
 	free(buffer);
 	return (g_ms->ret);
 }
@@ -79,12 +79,12 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 			if (ms->ext == 1)
 				break ;
 			free_array(cmd);
-			//ft_reset_mshell();
+			ft_reset_mshell();
 		}
 		ft_reset_mshell();
 	}
 	if (ms->ext != 1)
-		ft_printf("exit\n");
+		printf("exit\n");
 	free(buffer);
 }
 

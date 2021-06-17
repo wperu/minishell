@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:24:34 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/16 17:25:11 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 18:08:54 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	ft_add_cmd(t_token *tok, int i)
 	if (!new)
 		return ;
 	new->name = ft_strndup(tok->token, i);
-	//printf("name = %s\n", new->name);
 	new->arg = ft_split(tok->token + i, ' ');//ft_split_arg(tok->token, i);
 	new->sep = ft_redir_cmd(new->arg, &new->end);
 	if (ctmp == NULL)
@@ -82,7 +81,7 @@ int	ft_redir_cmd(char **arg, int *end)
 		}
 		i++;
 	}
-	if (*end == 0)
+	if (g_ms->st_out == STDOUT)
 	{
 		*end = i;
 		return (0);

@@ -18,7 +18,7 @@ HEADERS			=		includes/minishell.h
 
 CC				=		gcc
 
-CFLAGS 			= 		-Wall -Wextra -g3 -fsanitize=address
+CFLAGS 			= 		-Wall -Wextra -Werror -g3 -fsanitize=address
 
 SRCS			=		\
 						main.c \

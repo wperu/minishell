@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 16:59:31 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/16 20:00:35 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 19:43:45 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_usepath(t_cmd *cmd, char**env, t_mshell *ms, int i)
 	char			*tmp;
 	char			**cd;
 
-	cd = ft_dup_cmd(cmd->name, cmd->arg);
+	cd = ft_dup_cmd(cmd->name, cmd->arg, cmd->end);
 	while (cmd->name && ms->path && ms->path[i])
 	{
 		tmp = ft_strjoin(ft_strjoin(ms->path[i], "/"), cmd->name);
@@ -26,8 +26,13 @@ int	ft_usepath(t_cmd *cmd, char**env, t_mshell *ms, int i)
 		{
 			if (fork() == 0)
 			{
+				if (cmd->sep == 1)
+				{
+					dup2(ms->st_out, 1);
+					close(ms->st_out);
+				}
 				if (execve(tmp, cd, env) < 0
-					&& ft_printf("minishell: %s: command not found\n", cmd->name))
+					&& printf("minishell: %s: command not found\n", cmd->name))
 					exit(EXIT_SUCCESS);
 			}
 			ft_manage_signal(1);
@@ -35,6 +40,7 @@ int	ft_usepath(t_cmd *cmd, char**env, t_mshell *ms, int i)
 				close(ms->pfd[0]);*/
 			wait(&ms->status);
 			free(tmp);
+			//close(ms->st_out);
 			return (1);
 		}
 		free(tmp);
@@ -48,18 +54,18 @@ int	ft_exec_cmd2(t_cmd *cmd, char **env, t_mshell *ms)
 	int		fd;
 	char	**cd;
 
-	cd = ft_dup_cmd(cmd->name, cmd->arg);
+	cd = ft_dup_cmd(cmd->name, cmd->arg, cmd->end);
 	fd = open(cmd->name, 0);
 	if (fd > 0 && !close(fd))
 	{
 		if (g_ms->st_out != STDOUT)
 		{
 			if (execve(cmd->name, cd, env) < 0
-				&& ft_printf("%s not an executable\n", cmd->name))
+				&& printf("%s not an executable\n", cmd->name))
 				exit(EXIT_SUCCESS);
 		}
 		else if (fork() == 0 && execve(cmd->name, cd, env) < 0
-			&& ft_printf("minishell: %s: Command not found\n", cmd->name))
+			&& printf("minishell: %s: Command not found\n", cmd->name))
 			exit(EXIT_SUCCESS);
 		ft_manage_signal(2);
 		wait(&ms->status);
@@ -77,7 +83,7 @@ void	ft_excute(t_mshell *ms, t_cmd *cmd)
 
 	env = NULL;
 	if (cmd->name == NULL)
-		ft_printf("");
+		printf("");
 	else if (is_built_in(cmd->name) == true)
 		ms->ext = exec_built_in(cmd, ms);
 	else
@@ -87,10 +93,10 @@ void	ft_excute(t_mshell *ms, t_cmd *cmd)
 		{
 			ms->path = ft_split(ft_get_env_var("PATH=") + 5, ':');
 			if (!ft_exec_cmd2(cmd, env, ms))
-				ft_printf("minishell: %s: Command not found\n", cmd->name);
+				printf("minishell: %s: Command not found\n", cmd->name);
 		}
 		else
-			ft_printf("minishell: %s: Command not found\n", cmd->name);
+			printf("minishell: %s: Command not found\n", cmd->name);
 		free(env);
 		env = NULL;
 	}
@@ -126,7 +132,7 @@ int	exec_built_in(t_cmd *cmd, t_mshell *ms)
 	return (0);
 }
 
-char	**ft_dup_cmd(char *name, char **arg)
+char	**ft_dup_cmd(char *name, char **arg, int end)
 {
 	char	**tab;
 	int		i;
@@ -134,11 +140,9 @@ char	**ft_dup_cmd(char *name, char **arg)
 
 	tab = NULL;
 	len = 0;
-	while (arg[len])
-		len++;
-	tab = malloc(sizeof(char *) * (1 + len + 1));
+	tab = malloc(sizeof(char *) * (1 + end + 1));
 	i = 0;
-	while (i < (1 + len))
+	while (i < (1 + end))
 	{
 		if (i == 0)
 			tab[i] = ft_strdup(name);

@@ -1,3 +1,4 @@
-<< ajout
+<<, < a faire 
 \ , ; ne plus prendre en compte
-continuer l'adaption de la stucture avecc le built_in export et built_in_unset
+$?, strim (",')
+pipe a mettre en place

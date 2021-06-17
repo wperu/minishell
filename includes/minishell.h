@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/06/17 17:18:23 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/17 17:56:15 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "../libft/includes/libft.h"
+# include "../libft/libft/libft.h"
 
 # define	STDIN 0
 # define	STDOUT 1
@@ -159,6 +159,6 @@ void	ft_split_cmd(t_token *tok);
 void	ft_display_cmd(t_cmd *cmds);
 int		ft_redir_cmd(char **arg, int *end);
 void	ft_add_cmd(t_token *tok, int i);
-char	**ft_dup_cmd(char *name, char **arg);
+char	**ft_dup_cmd(char *name, char **arg, int end);
 
 #endif
