@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/06/17 20:02:12 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/20 23:50:53 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,5 +161,7 @@ int		ft_redir_cmd(char **arg, int *end);
 void	ft_add_cmd(t_token *tok, int i);
 t_list  *read_input_from(char *key);
 char	**ft_dup_cmd(char *name, char **arg, int end);
+
+char	**ft_split_cote(char *s, char c);
 
 #endif
