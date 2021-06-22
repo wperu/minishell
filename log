@@ -1,1 +1,0 @@
-gcc -Wall -Wextra -g3 -fsanitize=address -c srcs/utils/ft_signal.c -o srcs/utils/ft_signal.o -I includes
