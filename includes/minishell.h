@@ -6,11 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/06/22 19:17:15 by wperu            ###   ########lyon.fr   */
-=======
 /*   Updated: 2021/06/22 19:31:24 by emenella         ###   ########.fr       */
->>>>>>> pipe en cour
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +125,7 @@ void	ft_init_mshell(void);
 void	ft_reset_mshell(void);
 int		ft_parse_redir_v2(char **cmd, t_mshell *ms);
 int		ft_redir(char **cmd, t_mshell *ms);
-void	ft_pipe(t_cmd *tok);
+void	ft_pipe(t_cmd *cmd_left, t_cmd *cmd_right);
 void	shell_loop(void);
 
 //signal

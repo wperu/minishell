@@ -31,7 +31,7 @@ SRCS			=		\
 
 OBJS			= 		$(addprefix srcs/, $(SRCS:.c=.o))
 
-LIB 			= 		libft/libft.a $(LDFLAGS) -lreadline
+LIB 			= 		libft/libft.a -lreadline
 
 all				: 		$(NAME)
 
