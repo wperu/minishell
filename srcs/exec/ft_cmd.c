@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:24:34 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/20 23:49:59 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/22 17:27:24 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,19 @@ void	ft_display_cmd(t_cmd *cmds)
 		}
 		printf("sep = %d , end = %d\n", tmp->sep, tmp->end);
 		tmp = tmp->next;
+	}
+}
+
+void	ft_cmd_trim(t_cmd *cmd)
+{
+	int	i;
+
+	i = 0;
+	puts("ok");
+	cmd->name = ft_trim(cmd->name);
+	while (cmd->arg[i])
+	{
+		cmd->arg[i] = ft_trim(cmd->arg[i]);
+		i++;
 	}
 }

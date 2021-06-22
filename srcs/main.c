@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 15:30:04 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/17 20:34:22 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/22 17:16:13 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ int	minishell(char **envp)
 
 void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 {
-	int	i;
-
 	while (buffer != NULL && ms->ext != 1)
 	{
 		buffer = readline("minishell>");
@@ -71,9 +69,10 @@ void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
 			add_history(buffer);
 			ft_parse(buffer);
 			cmd = ft_split(buffer, ' ');
-			i = 0;
 			ft_split_cmd(g_ms->tok);
 			ft_display_cmd(g_ms->cmds);
+			ft_replace(g_ms->cmds->arg);
+			ft_cmd_trim(g_ms->cmds);
 			if (ft_parse_redir_v2(cmd, ms) == 1)
 				ft_excute(ms, g_ms->cmds);
 			if (ms->ext == 1)

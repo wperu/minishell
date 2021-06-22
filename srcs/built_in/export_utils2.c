@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 16:04:34 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/05 14:23:55 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/22 19:16:28 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_check_correct_var(char *var)
 	return (1);
 }
 
-char	*ft_trim(char *str, char c)
+char	*ft_trim(char *str)
 {
 	int		i;
 	int		cpt;
@@ -44,20 +44,18 @@ char	*ft_trim(char *str, char c)
 
 	i = 0;
 	cpt = 0;
-	dst = NULL;
-	while (str[i])
+	while (str[i] != '\0')
 	{
-		if (str[i] == c)
-			cpt++;
+		ft_cpt_cote(str, &i, &cpt);
 		i++;
 	}
 	dst = (char *)malloc(sizeof(char) * i - cpt + 1);
 	if (!dst)
 		return (NULL);
-	return (ft_trimcpy(dst, str, c));
+	return (ft_trimcpy(dst, str));
 }
 
-char	*ft_trimcpy(char *dst, char *str, char c)
+char	*ft_trimcpy(char *dst, char *str)
 {
 	int	i;
 	int	j;
@@ -66,8 +64,10 @@ char	*ft_trimcpy(char *dst, char *str, char c)
 	j = 0;
 	while (str[i])
 	{
-		if (str[i] == c)
-			i++;
+		if (str[i] == '\'')
+			ft_tcote(str, dst, &i, &j);
+		else if (str[i] == '\"')
+			ft_tdcote(str, dst, &i, &j);
 		else
 		{
 			dst[j] = str[i];

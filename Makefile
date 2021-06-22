@@ -6,7 +6,7 @@
 #    By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/08 14:26:55 by amonteli          #+#    #+#              #
-#    Updated: 2021/06/20 23:46:38 by wperu            ###   ########lyon.fr    #
+#    Updated: 2021/06/22 17:46:53 by wperu            ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ HEADERS			=		includes/minishell.h
 
 CC				=		gcc
 
-CFLAGS 			= 		-Wall -Wextra #-Werror -g3 -fsanitize=address 
+CFLAGS 			= 		-Wall -Wextra -g3 -fsanitize=address# -Werror -g3 -fsanitize=address
 
 SRCS			=		\
 						main.c \
@@ -37,11 +37,11 @@ all				: 		$(NAME)
 
 $(NAME)		: $(OBJS)
 		@make -C libft
-		@$(CC) $(CFLAGS) $(OBJS) -I $(HEADERS) $(LIB) -o $(NAME)
+		$(CC) $(CFLAGS) $(OBJS) -I $(HEADERS) $(LIB) -o $(NAME)
 		@printf "%b" "\033[0;32m $(NAME) is done !$(NO_COLOR)\n"
 
 %.o: %.c $(HEADERS)
-		@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)
+		$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)
 
 bonus		:		$(NAME)
 

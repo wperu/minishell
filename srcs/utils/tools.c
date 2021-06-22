@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 14:19:56 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/17 17:26:07 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/22 19:14:40 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,65 @@ char	*ft_strndup(char *str, int n)
 	return (dst);
 }
 
+void	ft_tcote(char *src, char *dst, int *i, int *j)
+{
+	int	ix;
+	int	jx;
 
+	ix = *i;
+	jx = *j;
+	ix++;
+	while (src[ix] != '\'' && src[ix])
+	{	
+		dst[jx] = src[ix];
+		ix++;
+		jx++;
+	}
+	ix++;
+	*i = ix;
+	*j = jx;
+}
+
+void	ft_tdcote(char *src, char *dst, int *i, int *j)
+{
+	int	ix;
+	int	jx;
+
+	ix = *i;
+	jx = *j;
+	ix++;
+	while (src[ix] != '\"' && src[ix])
+	{	
+		dst[jx] = src[ix];
+		ix++;
+		jx++;
+	}
+	ix++;
+	*i = ix;
+	*j = jx;
+}
+
+void	ft_cpt_cote(char *str, int *i, int *cpt)
+{
+	int	index;
+	int	tmp;
+
+	index = *i;
+	tmp = *cpt;
+	if (str[index] == '\'')
+	{	
+		index++;
+		while (str[index] != '\'')
+			index++;
+		tmp = tmp + 2;
+	}
+	else if (str[index] == '\"')
+	{
+		index++;
+		while (str[index] != '\"')
+			index++;
+		tmp = tmp + 2;
+	}
+	*i = index;
+	*cpt = tmp;
+}
