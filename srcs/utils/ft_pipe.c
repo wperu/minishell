@@ -3,30 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:16:31 by wperu             #+#    #+#             */
-/*   Updated: 2021/04/05 14:54:37 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/22 19:34:07 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_pipe(t_mshell *ms, char **cmd)
+void	ft_pipe(t_cmd *tok)
 {
 	pid_t	pid;
+	t_cmd	*cmd;
 
-	pipe(ms->pfd);
-	pid = fork();
-	if (pid == 0)
+	cmd = tok;
+	while (cmd->next != NULL)
 	{
-		dup2(ms->pfd[1], 1);
-		ft_excute(ms, cmd);
-		exit(0);
+		pipe(g_ms->pfd);
+		pid = fork();
+		if (pid == 0)
+		{
+			close(g_ms->pfd[1]);
+			dup2(g_ms->pfd[0], g_ms->st_in);
+			close(g_ms->pfd[0]);
+			ft_excute(g_ms, cmd->next);
+			exit(0);
+		}
+		else
+		{
+			close(g_ms->pfd[0]);
+			dup2(g_ms->pfd[1], g_ms->st_out);
+			close(g_ms->pfd[1]);
+			ft_excute(g_ms, cmd);
+			wait(NULL);
+		}
+		cmd = cmd->next;
 	}
-	dup2(ms->pfd[0], 0);
-	close(ms->pfd[0]);
-	close(ms->pfd[1]);
-	while (wait(NULL) > 0)
-		;
 }

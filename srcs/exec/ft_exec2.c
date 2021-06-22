@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 16:59:31 by wperu             #+#    #+#             */
 /*   Updated: 2021/06/22 18:25:15 by wperu            ###   ########lyon.fr   */
