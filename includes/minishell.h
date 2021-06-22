@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/06/20 23:50:53 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/22 19:31:24 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	ft_init_mshell(void);
 void	ft_reset_mshell(void);
 int		ft_parse_redir_v2(char **cmd, t_mshell *ms);
 int		ft_redir(char **cmd, t_mshell *ms);
-void	ft_pipe(t_mshell *ms, char **cmd);
+void	ft_pipe(t_cmd *tok);
 void	shell_loop(void);
 
 //signal
@@ -140,7 +140,7 @@ void	ft_manage_signal(int key);
 int		ft_exec_cmd2(t_cmd *cmd, char**env, t_mshell *ms);
 int		ft_usepath(t_cmd *cmd, char**env, t_mshell *ms, int i);
 
-void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer);
+void	ft_gnl_minishell(t_mshell *ms, char *buffer);
 
 // parsing
 void	ft_parse(char *cmd);

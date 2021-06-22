@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 15:30:04 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/17 20:34:22 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/22 19:14:08 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ int	minishell(char **envp)
 {
 	char		*buffer;
 	size_t		buf_size;
-	char		**cmd;
 
-	cmd = NULL;
 	buffer = NULL;
 	buf_size = 2048;
 	ft_init_mshell();
@@ -52,33 +50,30 @@ int	minishell(char **envp)
 	}
 	signal(SIGINT, &ft_signal_c);
 	signal(SIGQUIT, &ft_silence);
-	ft_gnl_minishell(g_ms, cmd, buffer);
+	ft_gnl_minishell(g_ms, buffer);
 	free_lst();
 	printf("Bye \n");
 	free(buffer);
 	return (g_ms->ret);
 }
 
-void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
+void	ft_gnl_minishell(t_mshell *ms, char *buffer)
 {
-	int	i;
-
 	while (buffer != NULL && ms->ext != 1)
 	{
-		buffer = readline("minishell>");
+		buffer = readline("minishell> ");
 		if (ft_one_nospace(buffer) == 1)
 		{
 			add_history(buffer);
 			ft_parse(buffer);
-			cmd = ft_split(buffer, ' ');
-			i = 0;
 			ft_split_cmd(g_ms->tok);
 			ft_display_cmd(g_ms->cmds);
-			if (ft_parse_redir_v2(cmd, ms) == 1)
+			if (ft_lstsize((t_list *)g_ms->tok) > 1)
+				ft_pipe(g_ms->cmds);
+			else
 				ft_excute(ms, g_ms->cmds);
 			if (ms->ext == 1)
 				break ;
-			free_array(cmd);
 			//ft_reset_mshell();
 		}
 		ft_reset_mshell();

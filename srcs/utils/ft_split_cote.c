@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_cote.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 21:51:22 by emenella          #+#    #+#             */
-/*   Updated: 2021/06/21 00:08:11 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/22 18:49:11 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,7 @@ char	**ft_split_cote(char *s, char c)
 
 	if (s == NULL)
 		return (NULL);
-	printf("input : %s\n", s);
 	len = numstring((char *)s, c);
-	printf("len : %d\n", len);
 	result = malloc(sizeof(char *) * (len + 1));
 	if (result == NULL)
 		return (NULL);
