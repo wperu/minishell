@@ -6,7 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/20 21:51:22 by emenella          #+#    #+#             */
-/*   Updated: 2021/06/22 18:49:11 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:58:58 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ static char	**fillup(char *s, char **dst, char c, int l)
 		while (s[i] == c)
 			i++;
 		dst[j] = (char *)malloc(sizeof(char) * numchar(s, c, i) + 1);
-		printf("len string : %d\n", numchar(s, c, i));
 		if (dst[j] == NULL)
 			return (freee(dst, j));
 		while (s[i] != '\0' && !(s[i] == c && ft_check_cote(s, i)))

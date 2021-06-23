@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:36:27 by amonteli          #+#    #+#             */
-/*   Updated: 2021/06/08 14:37:02 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/21 01:11:38 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_get_env_var(char *var)
 	while (tmp)
 	{
 		if (!ft_strncmp(var, tmp->var, len))
-			return (tmp->var);
+			return (tmp->var + len + 1);
 		tmp = tmp->next;
 	}
 	return (NULL);

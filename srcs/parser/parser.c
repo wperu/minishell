@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 15:58:57 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/20 23:43:34 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/21 03:28:40 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,25 @@ char	*ft_replace_var(char *cmd, int index)
 	return (cmd);
 }
 
-char	*ft_replace(char *cmd)
+char	**ft_replace(char **cmd)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (cmd[i])
+	j = 0;
+	while (cmd[j])
 	{
-		if (cmd[i] == '$' && ft_check_cote(cmd, i))
-			cmd = ft_replace_var(cmd, i);
-		printf("cmd = %s\n", cmd);
-		if (cmd[i])
-			i++;
-		puts("ok");
+		 i = 0;
+		while (cmd[j][i])
+		{
+			if (cmd[j][i] == '$' && ft_cote(cmd[j], i))
+				cmd[j] = ft_replace_var(cmd[j], i);
+			if (cmd[j][i])
+				i++;
+			//puts("ok");
+		}
+		j++;
 	}
 	return (cmd);
 }
@@ -126,6 +132,25 @@ int	ft_check_cote(char *cmd, int i)
 		j++;
 	}
 	if (cote == -1 && dcote == -1)
+		return (1);
+	else
+		return (0);
+}
+
+int ft_cote(char *cmd, int i)
+{
+	int	j;
+	int	cote;
+
+	j = 0;
+	cote = -1;
+	while (j < i && cmd[j])
+	{
+		if (cmd[j] == 39)
+			cote = cote * -1;
+		j++;
+	}
+	if (cote == -1)
 		return (1);
 	else
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 14:34:54 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/16 15:15:04 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/22 17:21:27 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	built_in_export(t_cmd *cmd)
 	i = 0;
 	while (cmd->arg[i])
 	{
-		if (ft_check_correct_var(ft_trim(cmd->arg[i], 34)) == 0)
+		if (ft_check_correct_var(cmd->arg[i]) == 0)
 		{
 			ft_putstr_fd("minishell: export: `", STDERR);
 			ft_putstr_fd(cmd->arg[i], STDERR);
 			ft_putstr_fd("': not a valid identifier\n", STDERR);
 		}
 		else if (cmd->arg[i] && cmd->arg[i][0] != '=')
-			ft_add_env_export(ft_trim(cmd->arg[i], 34));
+			ft_add_env_export(cmd->arg[i]);
 		i++;
 	}
 }

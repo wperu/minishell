@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:34:08 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/16 15:16:35 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/22 18:30:31 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	built_in_echo(t_cmd *cmd, t_mshell *ms)
 
 	i = 0;
 	option = 0;
-	if (!(ft_strcmp(cmd->arg[0], "-n")))
+	if (cmd->arg[0] && !(ft_strcmp(cmd->arg[0], "-n")))
 	{
 		option = 1;
 		i++;

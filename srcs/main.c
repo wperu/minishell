@@ -6,7 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 15:30:04 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/22 19:14:08 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:58:51 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_gnl_minishell(t_mshell *ms, char *buffer)
 			ft_split_cmd(g_ms->tok);
 			ft_display_cmd(g_ms->cmds);
 			if (ft_lstsize((t_list *)g_ms->tok) > 1)
-				ft_pipe(g_ms->cmds);
+				ft_pipe(g_ms->cmds, g_ms->cmds->next);
 			else
 				ft_excute(ms, g_ms->cmds);
 			if (ms->ext == 1)
