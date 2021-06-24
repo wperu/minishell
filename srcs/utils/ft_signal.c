@@ -6,7 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 15:16:06 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/23 14:59:56 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/24 15:31:47 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_signal_slash(int i)
 
 void	ft_nl(int i)
 {
-	printf("\n");
+	write(1, "\n", 1);
 	signal(i, SIG_IGN);
 }
 
