@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 15:58:57 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/21 03:28:40 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/28 16:32:45 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,37 +56,6 @@ char	**ft_replace(char **cmd)
 	return (cmd);
 }
 
-/*
-char	**ft_parser(char *buf)
-{
-	char	**cmd;
-	int		i;
-	int		backslash;
-	int		cote;
-	int		dcote;
-
-	i = 0;
-	backslash = 0;
-	cote = 0;
-	while ((cmd[i] != ';' || cmd[i] != '|') && cmd[i])
-	{
-		if (cmd[i] == 39 || cmd[i] == 34)
-		{
-			if (!cote)
-				cote = 1;
-			else
-				cote = 0;
-		}
-	}
-	if (cmd[i] == '\'')
-	{
-		if (backslash == 0)
-			backslash = 1;
-		else
-			backslash = 0;
-	}
-}
-*/
 int	ft_isseparator(char *cmd, int i)
 {
 	if ((cmd[i] == '|') && ft_check_cote(cmd, i))

@@ -1,4 +1,5 @@
-<<, < a faire 
+<<, < a faire
+trier la chaine **redir dans cmd et effectuer les dup2) 
 \ , ; ne plus prendre en compte
-$?, strim (",')
+$?
 pipe a mettre en place
