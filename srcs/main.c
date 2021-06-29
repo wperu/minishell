@@ -6,7 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 15:30:04 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/24 15:20:42 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/29 22:40:36 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ int	minishell(char **envp)
 		strerror(errno);
 		return (EXIT_FAILURE);
 	}
-	signal(SIGINT, &ft_signal_c);
-	signal(SIGQUIT, &ft_silence);
+	ft_manage_signal(0);
 	ft_gnl_minishell(g_ms, buffer);
 	free_lst();
 	printf("Bye \n");
@@ -61,6 +60,7 @@ void	ft_gnl_minishell(t_mshell *ms, char *buffer)
 {
 	while (buffer != NULL && ms->ext != 1)
 	{
+		ft_manage_signal(0);
 		buffer = readline("minishell> ");
 		if (ft_one_nospace(buffer) == 1)
 		{
@@ -68,6 +68,8 @@ void	ft_gnl_minishell(t_mshell *ms, char *buffer)
 			ft_parse(buffer);
 			ft_split_cmd(g_ms->tok);
 			ft_display_cmd(g_ms->cmds);
+			if (strcmp("test", buffer) == 0)
+				read_input_from("fin");
 			if (ft_lstsize((t_list *)g_ms->tok) > 1)
 				ft_pipe(g_ms->cmds, g_ms->cmds->next);
 			else

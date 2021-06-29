@@ -6,7 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/06/23 14:59:45 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/24 17:36:00 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,4 +172,5 @@ void	ft_cmd_trim(t_cmd *cmd);
 void	ft_tdcote(char *src, char *dst, int *i, int *j);
 void	ft_tcote(char *src, char *dst, int *i, int *j);
 void	ft_cpt_cote(char *str, int *i, int *cpt);
+void	rl_replace_line(char *str, int i);
 #endif

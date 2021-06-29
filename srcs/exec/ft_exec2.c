@@ -6,7 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 16:59:31 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/23 15:32:35 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/29 22:38:33 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	ft_excute(t_mshell *ms, t_cmd *cmd)
 		env = NULL;
 	}
 	signal(SIGINT, &ft_signal_c);
-	signal(SIGQUIT, &ft_silence);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 int	exec_built_in(t_cmd *cmd, t_mshell *ms)
