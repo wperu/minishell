@@ -6,7 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 16:59:31 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/29 22:38:33 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/29 22:54:28 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,14 @@ int	ft_usepath(t_cmd *cmd, char**env, t_mshell *ms, int i)
 				if (cmd->sep == 1)
 				{
 					dup2(ms->st_out, 1);
-					close(ms->st_out);
+				//	close(ms->st_out);
 				}
-				// puts("ok");
+				else if (cmd->sep == 2)
+				{
+					puts("ok1");
+					dup2(ms->st_in, 0);
+					//close(ms->st_in);
+				}
 				if (execve(tmp, cd, env) < 0
 					&& printf("minishell: %s: command not found\n", cmd->name))
 					exit(EXIT_SUCCESS);

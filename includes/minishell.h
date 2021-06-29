@@ -6,7 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/06/24 17:36:00 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/29 22:56:16 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,6 @@
 # define	STDOUT 1
 # define	STDERR 2
 
-typedef struct s_redir
-{
-	int				fd;
-	struct s_redir	*next;
-}							t_redir;
-
 typedef struct s_env
 {
 	char			*var;
@@ -49,6 +43,7 @@ typedef struct s_cmd
 {
 	char			*name;
 	char			**arg;
+	char			**redir;
 	int				sep;
 	int				end;
 	struct s_cmd	*next;
@@ -57,6 +52,7 @@ typedef struct s_cmd
 typedef struct s_tok
 {
 	char			*token;
+	char			*redir;
 	struct s_tok	*next;
 }				t_token;
 
@@ -124,8 +120,8 @@ char	*ft_strndup(char *str, int n);
 void	ft_init_mshell(void);
 void	ft_reset_mshell(void);
 int		ft_parse_redir_v2(char **cmd, t_mshell *ms);
-int		ft_redir(char **cmd, t_mshell *ms);
 void	ft_pipe(t_cmd *cmd_left, t_cmd *cmd_right);
+//int		ft_redir(char **cmd, t_mshell *ms);
 void	shell_loop(void);
 
 //signal
@@ -158,7 +154,7 @@ int		ft_one_nospace(char *buffer);
 
 void	ft_split_cmd(t_token *tok);
 void	ft_display_cmd(t_cmd *cmds);
-int		ft_redir_cmd(char **arg, int *end);
+int		ft_redir_cmd(char **arg, int *end, int *sep);
 void	ft_add_cmd(t_token *tok, int i);
 t_list	*read_input_from(char *key);
 char	**ft_dup_cmd(char *name, char **arg, int end);
@@ -173,4 +169,8 @@ void	ft_tdcote(char *src, char *dst, int *i, int *j);
 void	ft_tcote(char *src, char *dst, int *i, int *j);
 void	ft_cpt_cote(char *str, int *i, int *cpt);
 void	rl_replace_line(char *str, int i);
+int		ft_redir2(t_token *tok);
+int		ft_check_redir(char *str, int index, int i);
+int		ft_fin_redir(char *str, int idx);
+char	*ft_trim_redir(char *str, int cpt);
 #endif
