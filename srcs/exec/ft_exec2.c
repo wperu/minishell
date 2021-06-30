@@ -6,7 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 16:59:31 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/29 22:54:28 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/30 02:28:56 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_usepath(t_cmd *cmd, char**env, t_mshell *ms, int i)
 	char			**cd;
 
 	cd = ft_dup_cmd(cmd->name, cmd->arg, cmd->end);
-	printf("%s\n", g_ms->path[i]);
+	// printf("%s\n", g_ms->path[i]);
 	while (cmd->name && ms->path && ms->path[i])
 	{
 		tmp = ft_strjoin(ft_strjoin(ms->path[i], "/"), cmd->name);

@@ -6,7 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/06/29 22:56:16 by emenella         ###   ########.fr       */
+/*   Updated: 2021/06/30 04:59:00 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,15 @@ typedef struct s_tok
 	struct s_tok	*next;
 }				t_token;
 
+typedef struct s_pipe
+{
+	int	fd[2];
+	int	in;
+	int	out;
+}		t_pipe;
+
 typedef struct s_mshell
 {
-	int		pfd[2];
 	int		p;
 	char	**path;
 	int		status;
@@ -120,7 +126,8 @@ char	*ft_strndup(char *str, int n);
 void	ft_init_mshell(void);
 void	ft_reset_mshell(void);
 int		ft_parse_redir_v2(char **cmd, t_mshell *ms);
-void	ft_pipe(t_cmd *cmd_left, t_cmd *cmd_right);
+void	ft_pipe(void);
+int		ft_pipe_exec(t_pipe *s, t_cmd *cmd, char *env[]);
 //int		ft_redir(char **cmd, t_mshell *ms);
 void	shell_loop(void);
 
@@ -136,7 +143,7 @@ void	ft_manage_signal(int key);
 int		ft_exec_cmd2(t_cmd *cmd, char**env, t_mshell *ms);
 int		ft_usepath(t_cmd *cmd, char**env, t_mshell *ms, int i);
 
-void	ft_gnl_minishell(t_mshell *ms, char *buffer);
+void	ft_gnl_minishell(char *buffer);
 
 // parsing
 void	ft_parse(char *cmd);
@@ -173,4 +180,5 @@ int		ft_redir2(t_token *tok);
 int		ft_check_redir(char *str, int index, int i);
 int		ft_fin_redir(char *str, int idx);
 char	*ft_trim_redir(char *str, int cpt);
+int		ft_toksize(t_token *tok);
 #endif
