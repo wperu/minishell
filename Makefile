@@ -6,7 +6,7 @@
 #    By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/08 14:26:55 by amonteli          #+#    #+#              #
-#    Updated: 2021/06/30 00:18:10 by emenella         ###   ########.fr        #
+#    Updated: 2021/07/01 00:56:03 by emenella         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ HEADERS			=		includes/minishell.h
 
 CC				=		@gcc
 
-CFLAGS 			= 		-Wall -Wextra -Werror -fsanitize=address
+CFLAGS 			= 		-Wall -Wextra -Werror #-fsanitize=address -g3
 
 SRCS			=		\
 						main.c \

@@ -6,12 +6,12 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:16:31 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/30 23:03:42 by emenella         ###   ########.fr       */
+/*   Updated: 2021/07/01 01:34:06 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-# include <errno.h>
+#include <errno.h>
 
 int	ft_toksize(t_token *tok)
 {
@@ -31,8 +31,9 @@ int	ft_toksize(t_token *tok)
 void	ft_pipe(void)
 {
 	t_cmd	*cmd;
-	char	**env;
 	t_pipe	p;
+	size_t	i;
+	int		wstatus;
 
 	p = (t_pipe){
 		.fd[STDIN_FILENO] = STDIN_FILENO,
@@ -40,7 +41,6 @@ void	ft_pipe(void)
 		.in = false,
 		.out = false};
 	cmd = g_ms->cmds;
-	env = ft_lst_to_array();
 	while (cmd != NULL)
 	{
 		if (p.out)
@@ -51,21 +51,31 @@ void	ft_pipe(void)
 		}
 		if (cmd->next != NULL)
 			p.out = true;
-		ft_pipe_exec(&p, cmd, env);
+		ft_pipe_exec(&p, cmd);
 		cmd = cmd->next;
 	}
+	cmd = g_ms->cmds;
+	i = -1;
+	while (++i < cmd->pids_index)
+	{
+		while (waitpid(cmd->pids[i], &wstatus, 0) >= 0)
+			;
+		if (WIFEXITED(wstatus))
+			cmd->ret = (char)WEXITSTATUS(wstatus);
+		cmd->pids[i] = 0;
+	}
+	cmd->pids_index = 0;
 }
 
-int	ft_pipe_exec(t_pipe *s, t_cmd *cmd, char *env[])
+int	ft_pipe_exec(t_pipe *s, t_cmd *cmd)
 {
 	pid_t		pid;
-	int			wstatus;
 	int			ret;
 	char		**cd;
 	const int	prec_fd = s->fd[STDIN_FILENO];
 
-	dprintf(2, "START: fd in : %d, fd out : %d\n", s->fd[0], s->fd[1]);
 
+	(void)ret;
 	cd = ft_dup_cmd(cmd->name, cmd->arg, cmd->end);
 	ret = 0;
 	if (s->out)
@@ -90,16 +100,14 @@ int	ft_pipe_exec(t_pipe *s, t_cmd *cmd, char *env[])
 				exit(1);
 			}
 		}
-		dprintf(2, "@@@@@@ name: %s, args: %s, env %p\nin: %d out: %d\nfd in : %d, fd out %d\n@@@\n", cmd->name, cd[1], env, s->in, s->out, s->fd[0], s->fd[1]);
-		ret = execve(cmd->name, cd, env);
+		ft_excute(g_ms, cmd);
+		// dprintf(STDERR_FILENO,
+		// 	"error: %s: execve returned [%d]", cmd->name, ret);
 		exit(ret);
 	}
 	else if (pid > 0)
 	{
-		while (waitpid(pid, &wstatus, 0) >= 0)
-			;
-		if (WIFEXITED(wstatus))
-			ret = WEXITSTATUS(wstatus);
+		cmd->pids[cmd->pids_index++] = pid;
 		if (s->out)
 			close(s->fd[1]);
 		if (s->in)

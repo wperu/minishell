@@ -6,7 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/06/30 04:59:00 by emenella         ###   ########.fr       */
+/*   Updated: 2021/07/01 01:33:51 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ typedef struct s_cmd
 	char			**redir;
 	int				sep;
 	int				end;
+	pid_t			pids[700];
+	size_t 			pids_index;
+	char			ret;
 	struct s_cmd	*next;
 }				t_cmd;
 
@@ -127,7 +130,7 @@ void	ft_init_mshell(void);
 void	ft_reset_mshell(void);
 int		ft_parse_redir_v2(char **cmd, t_mshell *ms);
 void	ft_pipe(void);
-int		ft_pipe_exec(t_pipe *s, t_cmd *cmd, char *env[]);
+int		ft_pipe_exec(t_pipe *s, t_cmd *cmd);
 //int		ft_redir(char **cmd, t_mshell *ms);
 void	shell_loop(void);
 
