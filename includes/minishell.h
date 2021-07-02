@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/06/28 17:28:46 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/07/02 18:42:57 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ typedef struct s_cmd
 	char			*name;
 	char			**arg;
 	char			**redir;
-	int				sep;
-	int				end;
 	struct s_cmd	*next;
 }				t_cmd;
 
@@ -154,10 +152,10 @@ int		ft_one_nospace(char *buffer);
 
 void	ft_split_cmd(t_token *tok);
 void	ft_display_cmd(t_cmd *cmds);
-int		ft_redir_cmd(char **arg, int *end, int *sep);
+int		ft_redir_cmd(char **arg);
 void	ft_add_cmd(t_token *tok, int i);
 t_list	*read_input_from(char *key);
-char	**ft_dup_cmd(char *name, char **arg, int end);
+char	**ft_dup_cmd(char *name, char **arg);
 char	**ft_replace(char **cmd);
 
 char	**ft_split_cote(char *s, char c);
@@ -172,4 +170,7 @@ int		ft_redir2(t_token *tok);
 int		ft_check_redir(char *str, int index, int i);
 int		ft_fin_redir(char *str, int idx);
 char	*ft_trim_redir(char *str, int cpt);
+void	ft_space(t_token *tok);
+char	*ft_add_space(char *str, int idx);
+void	ft_dup2(void);
 #endif

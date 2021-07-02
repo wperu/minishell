@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:34:08 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/22 18:30:31 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/07/02 17:58:46 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	built_in_echo(t_cmd *cmd, t_mshell *ms)
 		option = 1;
 		i++;
 	}
-	while (cmd->arg[i] && i < cmd->end)
+	while (cmd->arg[i])
 	{
 		ft_putstr_fd(cmd->arg[i], ms->st_out);
 		if (cmd->arg[i + 1])

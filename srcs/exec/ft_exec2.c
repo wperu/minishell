@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 16:59:31 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/28 16:37:09 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/07/02 19:34:24 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ int	ft_usepath(t_cmd *cmd, char**env, t_mshell *ms, int i)
 	char			*tmp;
 	char			**cd;
 
-	cd = ft_dup_cmd(cmd->name, cmd->arg, cmd->end);
-	printf("%s\n", g_ms->path[i]);
+	cd = ft_dup_cmd(cmd->name, cmd->arg);
+	//printf("%s\n", g_ms->path[i]);
+	//printf("cd = %s\n", cd);
 	while (cmd->name && ms->path && ms->path[i])
 	{
 		tmp = ft_strjoin(ft_strjoin(ms->path[i], "/"), cmd->name);
@@ -27,17 +28,7 @@ int	ft_usepath(t_cmd *cmd, char**env, t_mshell *ms, int i)
 		{
 			if (fork() == 0)
 			{
-				if (cmd->sep == 1)
-				{
-					dup2(ms->st_out, 1);
-				//	close(ms->st_out);
-				}
-				else if (cmd->sep == 2)
-				{
-					puts("ok1");
-					dup2(ms->st_in, 0);
-					//close(ms->st_in);
-				}
+				ft_dup2();
 				if (execve(tmp, cd, env) < 0
 					&& printf("minishell: %s: command not found\n", cmd->name))
 					exit(EXIT_SUCCESS);
@@ -61,7 +52,7 @@ int	ft_exec_cmd2(t_cmd *cmd, char **env, t_mshell *ms)
 	int		fd;
 	char	**cd;
 
-	cd = ft_dup_cmd(cmd->name, cmd->arg, cmd->end);
+	cd = ft_dup_cmd(cmd->name, cmd->arg);
 	fd = open(cmd->name, 0);
 	if (ft_chr(cmd->name, '/') < (int)ft_strlen(cmd->name))
 	{
@@ -143,7 +134,7 @@ int	exec_built_in(t_cmd *cmd, t_mshell *ms)
 	return (0);
 }
 
-char	**ft_dup_cmd(char *name, char **arg, int end)
+char	**ft_dup_cmd(char *name, char **arg)
 {
 	char	**tab;
 	int		i;
@@ -151,18 +142,35 @@ char	**ft_dup_cmd(char *name, char **arg, int end)
 
 	tab = NULL;
 	len = 0;
-	tab = malloc(sizeof(char *) * (1 + end + 1));
+	if (arg)
+		while (arg[len])
+			len++;
+	tab = malloc(sizeof(char *) * (1 + len + 1));
 	i = 0;
-	while (i < (1 + end))
+	tab[0] = ft_strdup(name);
+	if (arg)
 	{
-		if (i == 0)
-			tab[i] = ft_strdup(name);
-		else
+		while (arg[i])
 		{
-			tab[i] = ft_strdup(arg[i - 1]);
+			tab[i + 1] = ft_strdup(arg[i]);
+			i++;
 		}
-		i++;
 	}
+	i++;
 	tab[i] = NULL;
 	return (tab);
+}
+
+void ft_dup2(void)
+{
+	if (g_ms->st_out != STDOUT)
+	{
+		dup2(g_ms->st_out, 1);
+		close(g_ms->st_out);
+	}
+	else if (g_ms->st_in != STDIN)
+	{
+		dup2(g_ms->st_in, 0);
+		close(g_ms->st_in);
+	}
 }

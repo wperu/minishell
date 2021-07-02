@@ -1,5 +1,5 @@
 <<, < a faire
-trier la chaine **redir dans cmd et effectuer les dup2) 
+trier la chaine **redir dans cmd et effectuer les dup2, revoir ft_space qui fait tout cracher
 \ , ; ne plus prendre en compte
 $?
 pipe a mettre en place

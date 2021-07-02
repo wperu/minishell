@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 14:39:52 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/28 18:04:27 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/07/02 19:34:59 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_add_token(char *cmd, int i, int j)
 	new->token = ft_nstrndup(cmd, i, j);
 	new->redir = NULL;
 	new->next = NULL;
-	printf("token = %s\n", new->token);
+	//printf("token = %s\n", new->token);
 	if (tok == NULL)
 		g_ms->tok = new;
 	else
@@ -62,19 +62,20 @@ int	ft_redir2(t_token *tok)
 	{
 		cpt = 0;
 		i = 0;
+	//	printf("token = %s\n", tok->token);
 		while (tok->token[i])
 		{
 			if (ft_check_redir(tok->token, i, 0))
 			{
 				cpt = cpt + ft_check_redir(tok->token, i, 0);
-				if (g_ms->tok->redir == NULL)
-					g_ms->tok->redir = ft_strndup(tok->token + i, ft_check_redir(tok->token, i, 0));
+				if (tok->redir == NULL)
+					tok->redir = ft_strndup(tok->token + i, ft_check_redir(tok->token, i, 0));
 				else
-					g_ms->tok->redir = ft_strjoin(ft_strjoin(g_ms->tok->redir," "), ft_strndup(tok->token + i, ft_check_redir(tok->token, i, 0)));
+					tok->redir = ft_strjoin(ft_strjoin(tok->redir, " "), ft_strndup(tok->token + i, ft_check_redir(tok->token, i, 0)));
 				 i = i + ft_check_redir(tok->token, i, 0);
-				printf("redir= %s\n", g_ms->tok->redir);
+			//	printf("redir= %s\n", tok->redir);
 			}
-			if (tok->token[i] && ft_fin_redir(tok->token, i) != 1)
+			if (tok->token[i] && (ft_check_redir(tok->token, i, 0) == 0))
 				i++;
 		}
 		if (cpt != 0)
@@ -130,9 +131,12 @@ int	ft_fin_redir(char *str, int idx)
 		return (0);
 }
 /*
-char	*ft_get_redir(char *str)
+char	**ft_get_redir(char *str)
 {
+	int i;
 
+	i = 0;
+	
 }*/
 
 char	*ft_trim_redir(char *str, int cpt)
@@ -150,15 +154,14 @@ char	*ft_trim_redir(char *str, int cpt)
 	{
 		if (ft_check_redir(str, i, 0))
 			i = i + ft_check_redir(str, i, 0);
-		else if (str[i] && ft_fin_redir(str, i) != 1)
+		else if ((str[i] && ft_fin_redir(str, i) != 1 )
+			 || (!ft_check_cote(str, i) && str[i]))
 		{
-			printf("i = %d ,j= %d\n", i, j);
 			trimeur[j] = str[i];
 			i++;
 			j++;
 		}
 	}
 	trimeur[j] = '\0';
-	printf("trim = %s\n", trimeur);
 	return (trimeur);
 }
