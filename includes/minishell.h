@@ -6,7 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/07/01 01:33:51 by emenella         ###   ########.fr       */
+/*   Updated: 2021/07/02 18:40:18 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ typedef struct s_cmd
 	char			**redir;
 	int				sep;
 	int				end;
-	pid_t			pids[700];
-	size_t 			pids_index;
 	char			ret;
 	struct s_cmd	*next;
 }				t_cmd;
@@ -61,10 +59,12 @@ typedef struct s_tok
 
 typedef struct s_pipe
 {
-	int	fd[2];
-	int	in;
-	int	out;
-}		t_pipe;
+	int		fd[2];
+	int		in;
+	int		out;
+	pid_t	pids[700];
+	size_t	pids_index;
+}			t_pipe;
 
 typedef struct s_mshell
 {

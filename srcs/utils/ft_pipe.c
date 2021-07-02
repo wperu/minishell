@@ -6,12 +6,11 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:16:31 by wperu             #+#    #+#             */
-/*   Updated: 2021/07/01 01:34:06 by emenella         ###   ########.fr       */
+/*   Updated: 2021/07/02 18:48:51 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include <errno.h>
 
 int	ft_toksize(t_token *tok)
 {
@@ -39,7 +38,9 @@ void	ft_pipe(void)
 		.fd[STDIN_FILENO] = STDIN_FILENO,
 		.fd[STDOUT_FILENO] = STDOUT_FILENO,
 		.in = false,
-		.out = false};
+		.out = false,
+		.pids = {0},
+		.pids_index = 0};
 	cmd = g_ms->cmds;
 	while (cmd != NULL)
 	{
@@ -56,15 +57,15 @@ void	ft_pipe(void)
 	}
 	cmd = g_ms->cmds;
 	i = -1;
-	while (++i < cmd->pids_index)
+	while (++i < p.pids_index)
 	{
-		while (waitpid(cmd->pids[i], &wstatus, 0) >= 0)
+		while (waitpid(p.pids[i], &wstatus, 0) >= 0)
 			;
 		if (WIFEXITED(wstatus))
 			cmd->ret = (char)WEXITSTATUS(wstatus);
-		cmd->pids[i] = 0;
+		p.pids[i] = 0;
 	}
-	cmd->pids_index = 0;
+	p.pids_index = 0;
 }
 
 int	ft_pipe_exec(t_pipe *s, t_cmd *cmd)
@@ -74,8 +75,6 @@ int	ft_pipe_exec(t_pipe *s, t_cmd *cmd)
 	char		**cd;
 	const int	prec_fd = s->fd[STDIN_FILENO];
 
-
-	(void)ret;
 	cd = ft_dup_cmd(cmd->name, cmd->arg, cmd->end);
 	ret = 0;
 	if (s->out)
@@ -101,13 +100,11 @@ int	ft_pipe_exec(t_pipe *s, t_cmd *cmd)
 			}
 		}
 		ft_excute(g_ms, cmd);
-		// dprintf(STDERR_FILENO,
-		// 	"error: %s: execve returned [%d]", cmd->name, ret);
 		exit(ret);
 	}
 	else if (pid > 0)
 	{
-		cmd->pids[cmd->pids_index++] = pid;
+		s->pids[s->pids_index++] = pid;
 		if (s->out)
 			close(s->fd[1]);
 		if (s->in)

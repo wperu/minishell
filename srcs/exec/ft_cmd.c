@@ -6,7 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:24:34 by wperu             #+#    #+#             */
-/*   Updated: 2021/07/01 01:07:39 by emenella         ###   ########.fr       */
+/*   Updated: 2021/07/02 18:46:26 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,8 @@ void	ft_add_cmd(t_token *tok, int i)
 	new = (t_cmd *)ft_calloc(sizeof(t_cmd), 1);
 	if (!new)
 		return ;
-	*new = (t_cmd){
-		.pids = {0},
-		.pids_index = 0
-	};
 	new->name = ft_strtrim(ft_strndup(tok->token, i), " ");
 	new->arg = ft_split_cote(tok->token + i, ' ');
-	
 	//new->redir = ft_split_redir(tok->redir);
 	ft_redir_cmd(new->arg, &new->end, &new->sep);
 		//exit(0);
