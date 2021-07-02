@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/07/02 18:42:57 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/07/02 19:40:36 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,18 @@ typedef struct s_tok
 	struct s_tok	*next;
 }				t_token;
 
+typedef struct s_pipe
+{
+	int		fd[2];
+	int		in;
+	int		out;
+	pid_t	pids[700];
+	size_t	pids_index;
+	int		ret;
+}			t_pipe;
+
 typedef struct s_mshell
 {
-	int		pfd[2];
 	int		p;
 	char	**path;
 	int		status;
@@ -118,8 +127,9 @@ char	*ft_strndup(char *str, int n);
 void	ft_init_mshell(void);
 void	ft_reset_mshell(void);
 int		ft_parse_redir_v2(char **cmd, t_mshell *ms);
+void	ft_pipe(void);
+int		ft_pipe_exec(t_pipe *s, t_cmd *cmd);
 //int		ft_redir(char **cmd, t_mshell *ms);
-void	ft_pipe(t_mshell *ms, char **cmd);
 void	shell_loop(void);
 
 //signal
@@ -134,7 +144,7 @@ void	ft_manage_signal(int key);
 int		ft_exec_cmd2(t_cmd *cmd, char**env, t_mshell *ms);
 int		ft_usepath(t_cmd *cmd, char**env, t_mshell *ms, int i);
 
-void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer);
+void	ft_gnl_minishell(char *buffer);
 
 // parsing
 void	ft_parse(char *cmd);
@@ -166,6 +176,7 @@ void	ft_cmd_trim(t_cmd *cmd);
 void	ft_tdcote(char *src, char *dst, int *i, int *j);
 void	ft_tcote(char *src, char *dst, int *i, int *j);
 void	ft_cpt_cote(char *str, int *i, int *cpt);
+void	rl_replace_line(char *str, int i);
 int		ft_redir2(t_token *tok);
 int		ft_check_redir(char *str, int index, int i);
 int		ft_fin_redir(char *str, int idx);
@@ -173,4 +184,5 @@ char	*ft_trim_redir(char *str, int cpt);
 void	ft_space(t_token *tok);
 char	*ft_add_space(char *str, int idx);
 void	ft_dup2(void);
+int		ft_toksize(t_token *tok);
 #endif

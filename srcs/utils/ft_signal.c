@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 15:16:06 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/21 00:44:41 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/06/29 22:41:36 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,7 @@ void	ft_signal_slash(int i)
 
 void	ft_nl(int i)
 {
-	printf("\n");
-	signal(i, SIG_IGN);
-}
-
-void	ft_silence(int i)
-{
+	write(1, "\n", 1);
 	signal(i, SIG_IGN);
 }
 
@@ -43,16 +38,16 @@ void	ft_manage_signal(int key)
 	if (key == 0)
 	{
 		signal(SIGINT, &ft_signal_c);
-		signal(SIGQUIT, &ft_silence);
+		signal(SIGQUIT, SIG_IGN);
 	}
-	if (key == 1)
+	else if (key == 1)
 	{
 		signal(SIGINT, &ft_nl);
 		signal(SIGQUIT, &ft_signal_slash);
 	}
 	else
 	{
-		signal(SIGINT, &ft_silence);
-		signal(SIGQUIT, &ft_silence);
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 	}
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+         #
+#    By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/08 14:26:55 by amonteli          #+#    #+#              #
-#    Updated: 2021/06/22 17:46:53 by wperu            ###   ########lyon.fr    #
+#    Updated: 2021/07/01 00:56:03 by emenella         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,14 @@ INC_DIR			=		includes
 
 HEADERS			=		includes/minishell.h
 
-CC				=		gcc
+CC				=		@gcc
 
-CFLAGS 			= 		-Wall -Wextra -g3 -fsanitize=address# -Werror -g3 -fsanitize=address
+CFLAGS 			= 		-Wall -Wextra -Werror #-fsanitize=address -g3
 
 SRCS			=		\
 						main.c \
 						$(addprefix reader/, reader.c) \
-						$(addprefix utils/, global_utils.c tools.c ft_strcmp.c ft_redir.c ft_signal.c ft_split_cote.c) \
+						$(addprefix utils/, global_utils.c tools.c ft_strcmp.c ft_redir.c ft_signal.c ft_pipe.c ft_split_cote.c) \
 						$(addprefix built_in/, built_in.c export.c export_utils.c export_utils2.c unset.c ft_built_exit.c) \
 						$(addprefix envs/, init_env.c) \
 						$(addprefix exec/, ft_exec2.c ft_cmd.c) \

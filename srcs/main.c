@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 15:30:04 by wperu             #+#    #+#             */
-/*   Updated: 2021/07/02 19:33:30 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/07/02 19:45:25 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ int	minishell(char **envp)
 {
 	char		*buffer;
 	size_t		buf_size;
-	char		**cmd;
 
-	cmd = NULL;
 	buffer = NULL;
 	buf_size = 2048;
 	ft_init_mshell();
@@ -50,41 +48,37 @@ int	minishell(char **envp)
 		strerror(errno);
 		return (EXIT_FAILURE);
 	}
-	signal(SIGINT, &ft_signal_c);
-	signal(SIGQUIT, &ft_silence);
-	ft_gnl_minishell(g_ms, cmd, buffer);
+	ft_manage_signal(0);
+	ft_gnl_minishell(buffer);
 	free_lst();
 	free(buffer);
 	return (g_ms->ret);
 }
 
-void	ft_gnl_minishell(t_mshell *ms, char **cmd, char *buffer)
+void	ft_gnl_minishell(char *buffer)
 {
-	while (buffer != NULL && ms->ext != 1)
+	while (buffer != NULL && g_ms->ext != 1)
 	{
-		buffer = readline("minishell>");
+		ft_manage_signal(0);
+		buffer = readline("minishell> ");
 		if (ft_one_nospace(buffer) == 1)
 		{
 			add_history(buffer);
 			ft_parse(buffer);
-			cmd = ft_split(buffer, ' ');
 			ft_redir2(g_ms->tok);
 			ft_space(g_ms->tok);// wtf
 			ft_split_cmd(g_ms->tok);
 			//ft_display_cmd(g_ms->cmds);
 			ft_replace(g_ms->cmds->arg);
-			ft_cmd_trim(g_ms->cmds);
-			ft_redir_cmd(g_ms->cmds->redir);
 			//ft_dup2();
-			ft_excute(ms, g_ms->cmds);
-			if (ms->ext == 1)
+			ft_pipe();
+			if (g_ms->ext == 1)
 				break ;
-			free_array(cmd);
-			//ft_reset_mshell();
+			// ft_reset_mshell();
 		}
 		ft_reset_mshell();
 	}
-	if (ms->ext != 1)
+	if (g_ms->ext != 1)
 		printf("exit\n");
 	free(buffer);
 }
