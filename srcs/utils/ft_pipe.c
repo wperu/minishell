@@ -6,7 +6,7 @@
 /*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:16:31 by wperu             #+#    #+#             */
-/*   Updated: 2021/07/02 19:53:24 by emenella         ###   ########.fr       */
+/*   Updated: 2021/07/02 19:57:40 by emenella         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	ft_pipe(void)
 		}
 		if (cmd->next != NULL)
 			p.out = true;
+		ft_replace(cmd->arg);
 		ft_cmd_trim(cmd);
 		ft_redir_cmd(cmd->redir);
 		ft_pipe_exec(&p, cmd);
