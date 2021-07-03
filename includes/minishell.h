@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 14:31:02 by amonteli          #+#    #+#             */
-/*   Updated: 2021/07/02 19:40:36 by emenella         ###   ########.fr       */
+/*   Updated: 2021/07/03 02:19:55 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	ft_add_env_var(char *var);
 char	*ft_get_env_var(char *var);
 char	**ft_lst_to_array(void);
 bool	get_abs_path(char **cmd, char **envp);
-void	ft_excute(t_mshell *ms, t_cmd *cmd);
+int		ft_excute(t_mshell *ms, t_cmd *cmd);
 
 // built-in
 
@@ -182,7 +182,12 @@ int		ft_check_redir(char *str, int index, int i);
 int		ft_fin_redir(char *str, int idx);
 char	*ft_trim_redir(char *str, int cpt);
 void	ft_space(t_token *tok);
-char	*ft_add_space(char *str, int idx);
+char	*ft_add_space(char *str, int idx, int i, int j);
 void	ft_dup2(void);
 int		ft_toksize(t_token *tok);
+void	ft_rereplace(t_cmd *cmd);
+void	ft_sous_exec(char **env, char **cd, t_cmd *cmd);
+void	ft_redir_out(int i, char **arg);
+int		ft_check_redir_out(int i, char **arg);
+
 #endif

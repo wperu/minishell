@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 13:39:57 by wperu             #+#    #+#             */
-/*   Updated: 2021/06/16 19:16:00 by emenella         ###   ########.fr       */
+/*   Updated: 2021/07/03 02:19:58 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,37 +30,11 @@ void	ft_init_mshell(void)
 	g_ms->st_in = STDIN;
 	g_ms->st_out = STDOUT;
 	g_ms->st_err = STDERR;
-	g_ms->ret = 0;
+	g_ms->ret = -1;
 	g_ms->p = 0;
 	g_ms->ext = 0;
 	i = 0;
 	g_ms->path = NULL;
-}
-
-int	ft_parse_redir_v2(char **cmd, t_mshell *ms)
-{
-	int	i;
-
-	i = 0;
-	while (cmd[i])
-	{
-		if (ft_strcmp(cmd[i], ">") == 0)
-			ms->st_out = open(cmd[i + 1], O_CREAT | O_WRONLY | O_TRUNC,
-					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		else if (ft_strcmp(cmd[i], ">>") == 0)
-			ms->st_out = open(cmd[i + 1], O_CREAT | O_WRONLY | O_APPEND,
-					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		else if (ft_strcmp(cmd[i], "|"))
-			ms->p = 1;
-		/* else if (ft_strcmp(cmd[i],"<\0") == 0)
-            if ((ms->st_in = open(cmd[i + 1],O_RDONLY)) < 0)
-            {
-                printf("minishell: %s: No such file or directory\n", cmd[i +1]);
-                return(-1);
-            }*/
-		i++;
-	}
-	return (1);
 }
 
 void	ft_reset_mshell(void)
@@ -72,9 +46,67 @@ void	ft_reset_mshell(void)
 	g_ms->st_in = STDIN;
 	g_ms->st_out = STDOUT;
 	g_ms->st_err = STDERR;
-	g_ms->ret = 0;
+	g_ms->ret = -1;
 	g_ms->p = 0;
 	g_ms->ext = 0;
 	free(g_ms->path);
 	g_ms->path = NULL;
+}
+
+char	*ft_trim_redir(char *str, int cpt)
+{
+	int		i;
+	int		j;
+	char	*trimeur;
+
+	trimeur = (char *)malloc(sizeof(char) * cpt + 1);
+	if (!trimeur)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (ft_check_redir(str, i, 0))
+			i = i + ft_check_redir(str, i, 0);
+		else if ((str[i] && ft_fin_redir(str, i) != 1 )
+			 || (!ft_check_cote(str, i) && str[i]))
+		{
+			trimeur[j] = str[i];
+			i++;
+			j++;
+		}
+	}
+	trimeur[j] = '\0';
+	return (trimeur);
+}
+
+void	ft_rereplace(t_cmd *cmd)
+{
+	while (cmd)
+	{
+		if (cmd->arg)
+			ft_replace(cmd->arg);
+		if (cmd->redir)
+			ft_replace(cmd->redir);
+		cmd = cmd->next;
+	}
+}
+
+int	ft_cote(char *cmd, int i)
+{
+	int	j;
+	int	cote;
+
+	j = 0;
+	cote = -1;
+	while (j < i && cmd[j])
+	{
+		if (cmd[j] == 39)
+			cote = cote * -1;
+		j++;
+	}
+	if (cote == -1)
+		return (1);
+	else
+		return (0);
 }

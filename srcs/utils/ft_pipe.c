@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 12:16:31 by wperu             #+#    #+#             */
-/*   Updated: 2021/07/02 19:57:40 by emenella         ###   ########.fr       */
+/*   Updated: 2021/07/03 02:20:02 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ void	ft_pipe(void)
 			p.out = true;
 		ft_replace(cmd->arg);
 		ft_cmd_trim(cmd);
+		if (cmd->redir)
+			ft_replace(cmd->redir);
 		ft_redir_cmd(cmd->redir);
-		ft_pipe_exec(&p, cmd);
+		g_ms->ret = ft_pipe_exec(&p, cmd);
 		cmd = cmd->next;
 	}
 	cmd = g_ms->cmds;
@@ -96,14 +98,14 @@ int	ft_pipe_exec(t_pipe *s, t_cmd *cmd)
 		}
 		if (s->out)
 		{
-			if (dup2(s->fd[STDOUT], g_ms->st_out) < 0 || close(s->fd[STDOUT]) < 0)
+			if (dup2(s->fd[STDOUT], g_ms->st_out) < 0
+				|| close(s->fd[STDOUT]) < 0)
 			{
 				dprintf(2, "Error: %d\n", errno);
 				exit(1);
 			}
 		}
-		ft_excute(g_ms, cmd);
-		exit(ret);
+		return (g_ms->ret = ft_excute(g_ms, cmd));
 	}
 	else if (pid > 0)
 	{

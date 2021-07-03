@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emenella <emenella@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/14 16:59:31 by wperu             #+#    #+#             */
-/*   Updated: 2021/07/02 19:55:53 by emenella         ###   ########.fr       */
+/*   Updated: 2021/07/03 02:00:01 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ int	ft_usepath(t_cmd *cmd, char**env, t_mshell *ms, int i)
 	char			**cd;
 
 	cd = ft_dup_cmd(cmd->name, cmd->arg);
-	//printf("%s\n", g_ms->path[i]);
-	//printf("cd = %s\n", cd);
-	while (cmd->name && ms->path && ms->path[i])
+	while (cmd->name && ms->path && ms->path[i++])
 	{
 		tmp = ft_strjoin(ft_strjoin(ms->path[i], "/"), cmd->name);
 		if (lstat(tmp, &buf) == 0)
@@ -34,15 +32,11 @@ int	ft_usepath(t_cmd *cmd, char**env, t_mshell *ms, int i)
 					exit(EXIT_SUCCESS);
 			}
 			ft_manage_signal(1);
-			/*if(flag && !close(ms->pfd[1]))
-				close(ms->pfd[0]);*/
 			wait(&ms->status);
 			free(tmp);
-			//close(ms->st_out);
 			return (1);
 		}
 		free(tmp);
-		i++;
 	}
 	return (0);
 }
@@ -59,11 +53,7 @@ int	ft_exec_cmd2(t_cmd *cmd, char **env, t_mshell *ms)
 		if (fd > 0 && !close(fd))
 		{
 			if (g_ms->st_out != STDOUT)
-			{
-				if (execve(cmd->name, cd, env) < 0
-					&& printf("%s not an executable\n", cmd->name))
-					exit(EXIT_SUCCESS);
-			}
+				ft_sous_exec(env, cd, cmd);
 			else if (fork() == 0 && execve(cmd->name, cd, env) < 0
 				&& printf("minishell: %s: Command not found\n", cmd->name))
 				exit(EXIT_SUCCESS);
@@ -79,7 +69,7 @@ int	ft_exec_cmd2(t_cmd *cmd, char **env, t_mshell *ms)
 	return (0);
 }
 
-void	ft_excute(t_mshell *ms, t_cmd *cmd)
+int	ft_excute(t_mshell *ms, t_cmd *cmd)
 {
 	char	**env;
 
@@ -87,7 +77,7 @@ void	ft_excute(t_mshell *ms, t_cmd *cmd)
 	if (cmd->name == NULL)
 		printf("");
 	else if (is_built_in(cmd->name) == true)
-		ms->ext = exec_built_in(cmd, ms);
+		return (g_ms->ext = exec_built_in(cmd, ms));
 	else
 	{
 		env = ft_lst_to_array();
@@ -104,6 +94,7 @@ void	ft_excute(t_mshell *ms, t_cmd *cmd)
 	}
 	signal(SIGINT, &ft_signal_c);
 	signal(SIGQUIT, SIG_IGN);
+	return (-1);
 }
 
 int	exec_built_in(t_cmd *cmd, t_mshell *ms)
@@ -129,9 +120,10 @@ int	exec_built_in(t_cmd *cmd, t_mshell *ms)
 	else if (!strcmp(cmd->name, "exit"))
 	{
 		built_in_exit(cmd, ms);
+		g_ms->ext = 1;
 		return (1);
 	}
-	return (0);
+	return (-1);
 }
 
 char	**ft_dup_cmd(char *name, char **arg)
@@ -159,18 +151,4 @@ char	**ft_dup_cmd(char *name, char **arg)
 	i++;
 	tab[i] = NULL;
 	return (tab);
-}
-
-void ft_dup2(void)
-{
-	if (g_ms->st_out != STDOUT)
-	{
-		dup2(g_ms->st_out, 1);
-		close(g_ms->st_out);
-	}
-	else if (g_ms->st_in != STDIN)
-	{
-		dup2(g_ms->st_in, 0);
-		close(g_ms->st_in);
-	}
 }

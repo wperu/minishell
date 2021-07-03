@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 14:39:52 by wperu             #+#    #+#             */
-/*   Updated: 2021/07/02 19:34:59 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/07/03 02:25:42 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	ft_add_token(char *cmd, int i, int j)
 	new->token = ft_nstrndup(cmd, i, j);
 	new->redir = NULL;
 	new->next = NULL;
-	//printf("token = %s\n", new->token);
 	if (tok == NULL)
 		g_ms->tok = new;
 	else
@@ -62,18 +61,19 @@ int	ft_redir2(t_token *tok)
 	{
 		cpt = 0;
 		i = 0;
-	//	printf("token = %s\n", tok->token);
 		while (tok->token[i])
 		{
 			if (ft_check_redir(tok->token, i, 0))
 			{
 				cpt = cpt + ft_check_redir(tok->token, i, 0);
 				if (tok->redir == NULL)
-					tok->redir = ft_strndup(tok->token + i, ft_check_redir(tok->token, i, 0));
+					tok->redir = ft_strndup(tok->token + i,
+							ft_check_redir(tok->token, i, 0));
 				else
-					tok->redir = ft_strjoin(ft_strjoin(tok->redir, " "), ft_strndup(tok->token + i, ft_check_redir(tok->token, i, 0)));
+					tok->redir = ft_strjoin(ft_strjoin(tok->redir, " "),
+							ft_strndup(tok->token + i,
+								ft_check_redir(tok->token, i, 0)));
 				 i = i + ft_check_redir(tok->token, i, 0);
-			//	printf("redir= %s\n", tok->redir);
 			}
 			if (tok->token[i] && (ft_check_redir(tok->token, i, 0) == 0))
 				i++;
@@ -85,9 +85,6 @@ int	ft_redir2(t_token *tok)
 		}
 		tok = tok->next;
 	}
-	/*if (tok->token == NULL)
-		return (0);
-	else*/
 	return (1);
 }
 
@@ -116,52 +113,17 @@ int	ft_check_redir(char *str, int index, int i)
 			|| (!ft_check_cote(str, i + index) && tmp[i]))
 			i++;
 	}
-	//g_ms->tok->redir = ft_strjoin(g_ms->tok->redir, ft_strndup(str + index, i));
-	//printf("redir= %s\n", g_ms->tok->token);
 	return (i);
 }
 
 int	ft_fin_redir(char *str, int idx)
 {
-	if (ft_strncmp(str + idx, "<<", 2) == 0 || ft_strncmp(str + idx, ">>", 2) == 0)
+	if (ft_strncmp(str + idx, "<<", 2) == 0
+		|| ft_strncmp(str + idx, ">>", 2) == 0)
 		return (1);
-	else if (ft_strncmp(str + idx, "<", 1) == 0 || ft_strncmp(str + idx, ">", 1) == 0)
+	else if (ft_strncmp(str + idx, "<", 1) == 0
+		|| ft_strncmp(str + idx, ">", 1) == 0)
 		return (1);
 	else
 		return (0);
-}
-/*
-char	**ft_get_redir(char *str)
-{
-	int i;
-
-	i = 0;
-	
-}*/
-
-char	*ft_trim_redir(char *str, int cpt)
-{
-	int		i;
-	int		j;
-	char	*trimeur;
-
-	trimeur = (char *)malloc(sizeof(char) * cpt + 1);
-	if (!trimeur)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (ft_check_redir(str, i, 0))
-			i = i + ft_check_redir(str, i, 0);
-		else if ((str[i] && ft_fin_redir(str, i) != 1 )
-			 || (!ft_check_cote(str, i) && str[i]))
-		{
-			trimeur[j] = str[i];
-			i++;
-			j++;
-		}
-	}
-	trimeur[j] = '\0';
-	return (trimeur);
 }

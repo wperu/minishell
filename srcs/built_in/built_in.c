@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:34:08 by wperu             #+#    #+#             */
-/*   Updated: 2021/07/02 17:58:46 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/07/03 02:55:30 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	built_in_cd(char *path)
 	pwd_ptr = NULL;
 	if (path == NULL || path[0] == '~')
 	{
-		if (chdir(ft_strjoin(ft_get_env_var("HOME=") + 5, path + 1)) == 0)
+		if (chdir(ft_strjoin(path + 1, ft_get_env_var("HOME=") + 5)) == 0)
 			ft_change_path(oldpwd, pwd, pwd_ptr);
 	}
 	else if (chdir(path) == 0)

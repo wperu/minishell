@@ -6,7 +6,7 @@
 /*   By: wperu <wperu@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 15:58:57 by wperu             #+#    #+#             */
-/*   Updated: 2021/07/02 16:51:45 by wperu            ###   ########lyon.fr   */
+/*   Updated: 2021/07/02 23:30:10 by wperu            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ char	*ft_replace_var(char *cmd, int index)
 	end = ft_strdup(cmd + i);
 	venv = ft_strndup(cmd + index + 1, i - index - 1);
 	venv = getenv(venv);
-	cmd = ft_strjoin(begin, ft_strjoin(venv, end));
+	if (venv != NULL)
+		cmd = ft_strjoin(begin, ft_strjoin(venv, end));
 	free(end);
 	free(begin);
-	//free(venv);
 	return (cmd);
 }
 
@@ -49,7 +49,6 @@ char	**ft_replace(char **cmd)
 				cmd[j] = ft_replace_var(cmd[j], i);
 			if (cmd[j][i])
 				i++;
-			//puts("ok");
 		}
 		j++;
 	}
@@ -101,25 +100,6 @@ int	ft_check_cote(char *cmd, int i)
 		j++;
 	}
 	if (cote == -1 && dcote == -1)
-		return (1);
-	else
-		return (0);
-}
-
-int ft_cote(char *cmd, int i)
-{
-	int	j;
-	int	cote;
-
-	j = 0;
-	cote = -1;
-	while (j < i && cmd[j])
-	{
-		if (cmd[j] == 39)
-			cote = cote * -1;
-		j++;
-	}
-	if (cote == -1)
 		return (1);
 	else
 		return (0);
